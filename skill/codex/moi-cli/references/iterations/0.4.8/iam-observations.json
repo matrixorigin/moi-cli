@@ -1,0 +1,38 @@
+{
+  "environment": "production",
+  "auth": "native",
+  "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+  "cli_channel": "candidate",
+  "cli_version": "0.1.0-dev.d5c5c3a",
+  "validated_on": "2026-11-15",
+  "observations": [
+    {
+      "capability_id": "iam-authorization",
+      "scenario_id": "inheritance-add-remove-canonical",
+      "status": "passed",
+      "conditions": {
+        "scope": "two isolated zero-member roles with current lifecycle versions"
+      },
+      "result": "子角色50004添加父角色50003后，角色图出现child=50004/parent=50003；移除后该边消失，role_graph_version恢复。",
+      "limits": [
+        "证明角色图继承关系可增删，不代替普通成员实际allow/deny验证。",
+        "role-permission-view只列直接授权，继承结果以role-inheritance-graph为准。"
+      ],
+      "evidence": "calls/add-inheritance + calls/graph-after-inheritance + calls/remove-inheritance + calls/graph-after-remove"
+    },
+    {
+      "capability_id": "iam-authorization",
+      "scenario_id": "revoke-clear-permission-drift",
+      "status": "passed",
+      "conditions": {
+        "scope": "isolated role with in_sync SELECT and actual data_privilege_version=1"
+      },
+      "result": "revoke clear成功，data_privilege_version从1升到2，data-privileges不再返回table.query/70023。",
+      "limits": [
+        "只证明本次in_sync初始授权和当前版本下的clear，不推广到mo_fact_only、损坏或其他历史授权。",
+        "session_invalidation_status=unknown；未验证普通成员会话失效。"
+      ],
+      "evidence": "calls/data-before-revoke + calls/revoke-clear + calls/data-after-revoke"
+    }
+  ]
+}

@@ -1,0 +1,2450 @@
+{
+  "results": [
+    {
+      "capability_id": "workflow-lifecycle",
+      "scenario_id": "multi-node-output",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "隔离读表/聚合/判断/Markdown下载"
+      },
+      "environment": "production / newmoi / native",
+      "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+      "evidence": "multi-node-result.json",
+      "result": "生产复测达到原版业务目标",
+      "limits": [
+        "不代表任意DSL或外发节点。"
+      ]
+    },
+    {
+      "capability_id": "workflow-lifecycle",
+      "scenario_id": "same-app-deploy-candidate",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "真实候选/acceptance/deploy-candidate指定原App"
+      },
+      "environment": "production / newmoi / native",
+      "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+      "evidence": "state.json#candidate",
+      "result": "生产复测达到原版业务目标",
+      "limits": [
+        "旧手工发布指针和get session_id解码问题未修复。"
+      ]
+    },
+    {
+      "capability_id": "workflow-lifecycle",
+      "scenario_id": "deploy-volume-defaults",
+      "baseline_status": "cli_missing",
+      "dev_status": "passed",
+      "comparison": "improved",
+      "conditions": {
+        "scope": "常规0.1.8首次deploy提供Volume默认值"
+      },
+      "environment": "production / newmoi / native",
+      "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+      "evidence": "volume-retry-result.json",
+      "result": "原CLI缺默认值输入；dev已配置并实际分发两文件",
+      "limits": [
+        "候选支持须先看当前binary help。"
+      ]
+    },
+    {
+      "capability_id": "workflow-lifecycle",
+      "scenario_id": "manual-publish-pointer",
+      "baseline_status": "failed",
+      "dev_status": "failed",
+      "comparison": "unchanged_gap",
+      "conditions": {
+        "scope": "旧手工create/publish更新指针路径"
+      },
+      "environment": "production / newmoi / native",
+      "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+      "evidence": "state.json#manual_publish",
+      "result": "v2已发布，但App仍指向v1且运行400，旧问题未修复",
+      "limits": [
+        "正式candidate替代成功不能称旧路径修复。"
+      ]
+    },
+    {
+      "capability_id": "workflow-lifecycle",
+      "scenario_id": "workflow-controls-typed-left-join",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "cli_version": "0.1.8",
+        "skill_version": "0.3.21",
+        "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+        "endpoint": "https://moi.matrixorigin.cn/newmoi",
+        "model_calls": "0",
+        "external_sends": "0",
+        "compute_created": "0",
+        "workflow_id": "eff7397e-d3ce-548e-b664-c0bc45d712e2",
+        "version_id": "e4e78e73-6243-408f-a2ec-37ff98eb6fdb",
+        "execution_id": "31140864-a3b6-4079-a47f-a1dfd4d6163b",
+        "case_id": "01a19c4a-86b4-783f-b382-4ae760159852",
+        "task_id": "01a19c4a-86b4-783c-b4e1-45be448f9919",
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "environment": "production / newmoi",
+        "scope": "带类型和空值的逐项合并"
+      },
+      "environment": "production / newmoi / native",
+      "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+      "evidence": "state.json#workflow_controls.typed-join",
+      "result": "生产复测达到原版业务目标",
+      "limits": [
+        "仅moi:data.records.join v1，本轮小集合；不代表通用循环DSL。"
+      ]
+    },
+    {
+      "capability_id": "workflow-lifecycle",
+      "scenario_id": "workflow-controls-render-filter-empty",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "cli_version": "0.1.8",
+        "skill_version": "0.3.21",
+        "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+        "endpoint": "https://moi.matrixorigin.cn/newmoi",
+        "model_calls": "0",
+        "external_sends": "0",
+        "compute_created": "0",
+        "workflow_id": "9f772d20-51a1-5cc1-971b-6f7cd57f1b0a",
+        "version_id": "dfd1e8af-bc17-442b-a76d-edf2f0676cd0",
+        "execution_id": "99fafd2c-dc9c-437f-ba32-368714eab6b7",
+        "case_id": "01a19c4b-2a1e-7b25-8cec-8f0d65ff4da1",
+        "task_id": "01a19c4b-2a1e-7b22-83e3-1eb7f1e0c4da",
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "environment": "production / newmoi",
+        "scope": "条件筛选、稳定排序、数量与空集合"
+      },
+      "environment": "production / newmoi / native",
+      "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+      "evidence": "state.json#workflow_controls.filter-empty",
+      "result": "生产复测达到原版业务目标",
+      "limits": [
+        "这是render节点内部的声明式where/sort/limit，不是Workflow条件分支或foreach。"
+      ]
+    },
+    {
+      "capability_id": "workflow-lifecycle",
+      "scenario_id": "workflow-controls-duplicate-stop-retain",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "cli_version": "0.1.8",
+        "skill_version": "0.3.21",
+        "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+        "endpoint": "https://moi.matrixorigin.cn/newmoi",
+        "model_calls": "0",
+        "external_sends": "0",
+        "compute_created": "0",
+        "workflow_id": "1eaee1a7-35c2-5a9b-87c4-ad818f1f43f9",
+        "version_id": "76a83a71-ca41-4453-be15-6a07360151f8",
+        "execution_id": "10e87729-0cec-481e-802f-31bc7905b0c3",
+        "case_id": "01a19c4b-8574-729a-be74-fb529e9271ce",
+        "task_id": "01a19c4b-8574-7297-bbb6-4c77b53bec10",
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "environment": "production / newmoi",
+        "scope": "重复lookup键拒绝并保留前置输出"
+      },
+      "environment": "production / newmoi / native",
+      "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+      "evidence": "state.json#workflow_controls.duplicate-failure",
+      "result": "生产复测达到原版业务目标",
+      "limits": [
+        "passed表示预期负例的停止/留存合同通过，执行本身仍为failed；不代表外部副作用回滚。"
+      ]
+    },
+    {
+      "capability_id": "workflow-lifecycle",
+      "scenario_id": "workflow-controls-expression-deploy500",
+      "baseline_status": "failed",
+      "dev_status": "failed",
+      "comparison": "unchanged_gap",
+      "conditions": {
+        "cli_version": "0.1.8",
+        "skill_version": "0.3.21",
+        "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+        "endpoint": "https://moi.matrixorigin.cn/newmoi",
+        "model_calls": "0",
+        "external_sends": "0",
+        "compute_created": "0",
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "environment": "production / newmoi",
+        "scope": "对象构造表达式部署返回500"
+      },
+      "environment": "production / newmoi / native",
+      "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+      "evidence": "calls/wf-null-failure-deploy/response.json",
+      "result": "仍不支持该表达式；错误由500变为明确400，不计业务通过",
+      "limits": [
+        "对象是否曾创建仍未知；total51只返回20，正式list/apps help无分页/筛选输入；无法定位原ID，不能声称已精确清理。",
+        "没有服务端日志，不能确定是表达式、DSL编译、参数推导或其他原因；后续变体不证明原失败已修复。"
+      ]
+    },
+    {
+      "capability_id": "workflow-lifecycle",
+      "scenario_id": "workflow-controls-null-placeholder-stop",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "cli_version": "0.1.8",
+        "skill_version": "0.3.21",
+        "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+        "endpoint": "https://moi.matrixorigin.cn/newmoi",
+        "model_calls": "0",
+        "external_sends": "0",
+        "compute_created": "0",
+        "workflow_id": "1cb03824-94d6-5eff-acb3-62f7f815c798",
+        "version_id": "de8813c0-c63f-4fe9-8173-e93efe2f828b",
+        "execution_id": "fee59c2a-2acc-48fe-b77e-f0fe0a59d0d7",
+        "case_id": "01a19c4d-edd0-7e6d-a7a9-92aff4a737e4",
+        "task_id": "01a19c4d-edd0-7e6a-a1a0-6d00d8ae4f53",
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "environment": "production / newmoi",
+        "scope": "精确结构绑定与null占位符拒绝"
+      },
+      "environment": "production / newmoi / native",
+      "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+      "evidence": "state.json#workflow_controls.null-nested",
+      "result": "生产复测达到原版业务目标",
+      "limits": [
+        "不是原500请求的重放；保留原500失败与未知副作用。",
+        "仅此输入的null字段拒绝合同；没有测通用条件分支/循环、故障自动恢复或输出文件。"
+      ]
+    },
+    {
+      "capability_id": "job-recovery",
+      "scenario_id": "volume-failed-only-retry",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "同Volume1成功1失败、同版本精确失败execution"
+      },
+      "environment": "production / newmoi / native",
+      "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+      "evidence": "volume-retry-result.json",
+      "result": "生产复测达到原版业务目标",
+      "limits": [
+        "不外推任意副作用或并发规模。"
+      ]
+    },
+    {
+      "capability_id": "job-recovery",
+      "scenario_id": "node-plan-hash-idempotence",
+      "baseline_status": "failed",
+      "dev_status": "failed",
+      "comparison": "unchanged_gap",
+      "conditions": {
+        "scope": "同node继续计划hash双请求及顺序重发"
+      },
+      "environment": "production / newmoi / native",
+      "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+      "evidence": "node-hash-result.json",
+      "result": "相同计划并发两次加顺序一次均创建不同执行，旧限制保持",
+      "limits": [
+        "hash是合同来源保护不是幂等键；业务键方案不修复该路径。"
+      ]
+    },
+    {
+      "capability_id": "job-recovery",
+      "scenario_id": "pause-resume-cancel",
+      "baseline_status": "passed",
+      "dev_status": "partial",
+      "comparison": "regression",
+      "conditions": {
+        "scope": "隔离Workflow沿原execution暂停/恢复与取消"
+      },
+      "environment": "production / newmoi / native",
+      "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+      "evidence": "state.json#execution_controls + calls/controls-cancel-paused-resume-rejected/response.json",
+      "result": "暂停/恢复/三种取消通过，但取消后恢复由原版409变为500，错误语义退化",
+      "limits": [
+        "不证明副作用回滚或任意取消任务可续跑。"
+      ]
+    },
+    {
+      "capability_id": "knowledge-preparation",
+      "scenario_id": "sources-retrieval-citations",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "限定文档追加/跨库复用/表来源/新会话"
+      },
+      "environment": "production / newmoi / native",
+      "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+      "evidence": "evidence/skill-048-knowledge-reuse + evidence/skill-048-final-recheck/observations.json",
+      "result": "同一 Catalog 原文件和表来源均 succeeded，文档 3 段及 ETag 可读。独立新会话返回 53 箱、银杉-053、7 辆车、orders 6 笔和总额 1500；select_final_sources accepted=true，正式 rag_chunk 命中当前 model/source/file/chunk，sql_table 指向真实 orders。",
+      "limits": [
+        "通过条件是短知识库名称 s048r；长名称拼接 operation_id 超过 VARCHAR(128) 的产品缺陷未修复。",
+        "只证明本次小文档、表来源和当前生产配置，不推断任意名称、规模或普通成员权限。"
+      ]
+    },
+    {
+      "capability_id": "knowledge-preparation",
+      "scenario_id": "replace-file-source",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "新file身份替代旧source"
+      },
+      "environment": "production / newmoi / native",
+      "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+      "evidence": "replace-source-result.json",
+      "result": "生产复测达到原版业务目标",
+      "limits": [
+        "非同file覆盖、原子替换或物理向量擦除。"
+      ]
+    },
+    {
+      "capability_id": "knowledge-preparation",
+      "scenario_id": "duplicate-append-readiness",
+      "baseline_status": "partial",
+      "dev_status": "passed",
+      "comparison": "improved",
+      "conditions": {
+        "scope": "同file重复append"
+      },
+      "environment": "production / newmoi / native",
+      "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+      "evidence": "state.json#source_pagination",
+      "result": "重复append保持同一来源，准备恢复成功且ETag不变，原partial改善",
+      "limits": [
+        "旧内容可读不能直接算ready。"
+      ]
+    },
+    {
+      "capability_id": "knowledge-preparation",
+      "scenario_id": "document-governance-pagination",
+      "baseline_status": "cli_missing",
+      "dev_status": "passed",
+      "comparison": "improved",
+      "conditions": {
+        "scope": "常规0.1.8整篇治理和分段分页"
+      },
+      "environment": "production / newmoi / native",
+      "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+      "evidence": "governance-result.json + state.json#source_pagination",
+      "result": "分页、停用/恢复、过期/强制启用及新会话引用均通过",
+      "limits": [
+        "不能把候选成功当常规CLI可用。"
+      ]
+    },
+    {
+      "capability_id": "knowledge-preparation",
+      "scenario_id": "image-visual-hit",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "限定PDF图片准备/实际看图/第1页引用"
+      },
+      "environment": "production / newmoi / native",
+      "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+      "evidence": "image-visual-result.json",
+      "result": "相似图命中第1页，答案和独立看图一致，visual_hit正确",
+      "limits": [
+        "图片携volume读取失败另列。"
+      ]
+    },
+    {
+      "capability_id": "knowledge-preparation",
+      "scenario_id": "image-read-with-volume",
+      "baseline_status": "failed",
+      "dev_status": "failed",
+      "comparison": "unchanged_gap",
+      "conditions": {
+        "scope": "携volume_id图片读取"
+      },
+      "environment": "production / newmoi / native",
+      "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+      "evidence": "image-visual-result.json",
+      "result": "派生页图沿用原文件 Volume 被拒绝；新证据确认该派生文件没有原 Volume 的直接 placement，属于输入归属不匹配。",
+      "limits": [
+        "保留该错误输入的失败记录，不把它解释为 volume_id 功能通用失效。",
+        "原文件在规范根 Volume 的成功读取见 image-read-with-canonical-volume；派生页图应按可选合同省略 volume_id。"
+      ]
+    },
+    {
+      "capability_id": "knowledge-preparation",
+      "scenario_id": "knowledge-empty-create-response-decoder",
+      "baseline_status": "failed",
+      "dev_status": "passed",
+      "comparison": "improved",
+      "conditions": {
+        "cli": "regular 0.1.8",
+        "scope": "空库创建读取兼容与空条目导入边界",
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "environment": "production / newmoi"
+      },
+      "environment": "production / newmoi / native",
+      "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+      "evidence": "calls/km-create-a/response.json + calls/km-get-a/response.json",
+      "result": "空库create/get/list/export均正常，空条目仍明确拒绝，原解码失败改善",
+      "limits": [
+        "list-entries的{}未单独作为空库证明；结合export及首次导入后完整total=2/两条内容判断。",
+        "没有增加第二次A创建；B是不同已授权目标。",
+        "创建/读取失败不能因后续管理可用改判通过。"
+      ]
+    },
+    {
+      "capability_id": "knowledge-preparation",
+      "scenario_id": "knowledge-entry-migrate-content-new-ids",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "source": "A80005",
+        "target": "B90005",
+        "entries": "rag/business_rule与rag/standard_qa各1条",
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "environment": "production / newmoi",
+        "scope": "两种语义条目跨库导入保内容并分配独立ID"
+      },
+      "environment": "production / newmoi / native",
+      "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+      "evidence": "state.json#knowledge_migration",
+      "result": "生产复测达到原版业务目标",
+      "limits": [
+        "条目管理迁移，不代表原文件/分段/向量/图片/完整知识库备份迁移。",
+        "无模型问答、检索消费或引用验收。"
+      ]
+    },
+    {
+      "capability_id": "knowledge-preparation",
+      "scenario_id": "knowledge-entry-identical-repeat-conflict",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "request": "first/repeat保存的实际输入副本SHA相同",
+        "target_preexisting_entries": "2",
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "environment": "production / newmoi",
+        "scope": "完全相同正文再次导入明确拒绝且两库不变"
+      },
+      "environment": "production / newmoi / native",
+      "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+      "evidence": "calls/km-import-b-repeat/response.json",
+      "result": "生产复测达到原版业务目标",
+      "limits": [
+        "限定顺序重复两条小样例，不承诺并发或全部kind。"
+      ]
+    },
+    {
+      "capability_id": "knowledge-preparation",
+      "scenario_id": "knowledge-entry-key-conflicts-unchanged",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "existing_key": "kmig_transport正文9箱改13箱",
+        "in_batch": "同一全新key两条不同正文",
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "environment": "production / newmoi",
+        "scope": "现有key改正文和同批新key重复均不覆盖或部分新增"
+      },
+      "environment": "production / newmoi / native",
+      "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+      "evidence": "calls/km-import-existing-key-changed/response.json + calls/km-import-intrabatch-same-key/response.json",
+      "result": "生产复测达到原版业务目标",
+      "limits": [
+        "只证明当前指定key冲突分支，不代表import支持upsert，也不推断后端实现事务方式。"
+      ]
+    },
+    {
+      "capability_id": "knowledge-preparation",
+      "scenario_id": "knowledge-entry-mixed-invalid-orders-rejected",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "request": "合法business_rule+schema形状合法但业务kind无效的条目",
+        "orders": "[\"valid-first\", \"invalid-first\"]",
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "environment": "production / newmoi",
+        "scope": "混合有效与无效kind两种顺序均整体拒绝且源目标不变"
+      },
+      "environment": "production / newmoi / native",
+      "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+      "evidence": "calls/km-import-mixed-valid-first/response.json + calls/km-import-mixed-invalid-first/response.json",
+      "result": "生产复测达到原版业务目标",
+      "limits": [
+        "有限样例未观测部分提交；不据此证明所有失败分支/并发的事务原子保证。",
+        "非法kind是受控负例，不判产品失败。"
+      ]
+    },
+    {
+      "capability_id": "knowledge-preparation",
+      "scenario_id": "knowledge-source-pagination-page-size",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "cli": "0.1.8 regular",
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "model_id": "100002",
+        "page_sizes": "2 and 50",
+        "read_only": "true"
+      },
+      "environment": "production / newmoi / native",
+      "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+      "evidence": "state.json#source_pagination",
+      "result": "生产复测达到原版业务目标",
+      "limits": [
+        "限定现有知识库100002及来源列表；未测并发增删时分页快照。"
+      ]
+    },
+    {
+      "capability_id": "catalog-discovery",
+      "scenario_id": "small-table-inspection",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "3列6行合成小表"
+      },
+      "evidence": "export-integrity/small-six-rows.csv",
+      "result": "3列6行完整下载、预览、结构与金额核验通过",
+      "limits": [
+        "不外推任意大表或未知目录发现。"
+      ]
+    },
+    {
+      "capability_id": "catalog-discovery",
+      "scenario_id": "same-name-file-placement",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "两同名file与同file多处placement"
+      },
+      "evidence": "catalog-placements/state.json",
+      "result": "同名文件、重复挂载、改名、并发去引用、下载和精确清理通过",
+      "limits": [
+        "非内容去重/物理擦除/任意并发。"
+      ]
+    },
+    {
+      "capability_id": "catalog-discovery",
+      "scenario_id": "unknown-nested-discovery",
+      "baseline_status": "partial",
+      "dev_status": "passed",
+      "comparison": "improved",
+      "conditions": {
+        "scope": "未知嵌套Volume子树"
+      },
+      "evidence": "nested-discovery/children-final.json",
+      "result": "逐层 catalog files 并分页可完整发现未知嵌套；catalog_walk.py 在两组真实对象上通过，database-children 本身仍只返回 root。",
+      "limits": [
+        "递归由 Skill 调用方完成，不代表 database-children 已支持递归。",
+        "必须有分页终止、visited、最大深度和节点预算；大目录或权限拒绝不能外推为完整发现。"
+      ]
+    },
+    {
+      "capability_id": "catalog-discovery",
+      "scenario_id": "volume-file-filter-input",
+      "baseline_status": "cli_missing",
+      "dev_status": "passed",
+      "comparison": "improved",
+      "conditions": {
+        "scope": "常规0.1.8按Volume筛选Catalog文件"
+      },
+      "evidence": "catalog-boundaries/cb01-file-list.json",
+      "result": "Volume与真实file ID筛选返回唯一正确文件",
+      "limits": [
+        "候选成功不是全局CLI已升级。"
+      ]
+    },
+    {
+      "capability_id": "catalog-discovery",
+      "scenario_id": "catalog-files-no-filter-rejection",
+      "baseline_status": "cli_missing",
+      "dev_status": "passed",
+      "comparison": "improved",
+      "conditions": {
+        "cli": "0.1.8 regular",
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "command": "catalog files",
+        "read_only": "true"
+      },
+      "evidence": "catalog-boundaries/cb01-file-list.json",
+      "result": "dev正式Volume参数解决旧CLI输入缺口",
+      "limits": [
+        "这是CLI输入/接口合同缺口，不证明Catalog文件服务不可用；不能按返回错误自行猜参数或改用raw HTTP。"
+      ]
+    },
+    {
+      "capability_id": "source-staging",
+      "scenario_id": "selected-file-upload",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "用户选定小文件、明确Connector/Catalog/Knowledge用途"
+      },
+      "evidence": "catalog-placements/state.json",
+      "result": "上传、挂载、导入和真实ID关联通过",
+      "limits": [
+        "上传只证明暂存；file ID作用域不可互换。"
+      ]
+    },
+    {
+      "capability_id": "source-staging",
+      "scenario_id": "agent-file-lifecycle",
+      "baseline_status": "partial",
+      "dev_status": "passed",
+      "comparison": "improved",
+      "conditions": {
+        "scope": "同basename多成果、token三页及精确删除"
+      },
+      "evidence": "",
+      "result": "115字节文件上传/下载MD5和SHA256一致；挂载前无placement，挂载后1处，删除后下载404、placement=0、Volume=0，隔离Volume和数据库清理后均404。",
+      "limits": [
+        "仅证明桌面workspace file生命周期，不代替runtime task publish-artifact或跨身份权限验收。",
+        "无placement删除仍需先建立明确隔离挂载，不能作为用户历史文件默认补救。"
+      ]
+    },
+    {
+      "capability_id": "data-ingestion",
+      "scenario_id": "csv-xlsx-append-overwrite",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "限定CSV/XLSX新建追加覆盖"
+      },
+      "evidence": "import-formats/state.json",
+      "result": "CSV新建追加覆盖和XLSX新建追加全部完成并读回数据",
+      "limits": [
+        "不自动内容去重，其它格式策略另验。"
+      ]
+    },
+    {
+      "capability_id": "data-ingestion",
+      "scenario_id": "per-file-config-targeted-retry",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "每文件独立table-config、同表仅retry失败文件"
+      },
+      "evidence": "import-targeted-retry/import-state.json",
+      "result": "仅失败文件重试完成，三行38且原成功数据不重复",
+      "limits": [
+        "不是单配置多文件整组重放的修复。"
+      ]
+    },
+    {
+      "capability_id": "data-ingestion",
+      "scenario_id": "single-config-group-replay",
+      "baseline_status": "failed",
+      "dev_status": "failed",
+      "comparison": "unchanged_gap",
+      "conditions": {
+        "scope": "同一配置多文件且已有成功数据后只选失败重试"
+      },
+      "evidence": "evidence/skill-048-import-retry + evidence/skill-048-final-recheck/observations.json",
+      "result": "2026-11-15 再次只选择 bad 文件 517534000258（业务键 300）重试，仍因未选择 good 文件的业务键 200 冲突失败；重试前后隔离表均只有 baseline 100 和 good 200，bad 300 未写入。",
+      "limits": [
+        "选择范围与实际 writer 输入不一致，不是调用者选错文件。",
+        "每文件独立 table-config 是规避方案，不是同配置选择性重试修复。"
+      ]
+    },
+    {
+      "capability_id": "data-ingestion",
+      "scenario_id": "composite-key-update",
+      "baseline_status": "failed",
+      "dev_status": "failed",
+      "comparison": "unchanged_gap",
+      "conditions": {
+        "scope": "复合主键自动更新"
+      },
+      "evidence": "evidence/skill-048-import-retry + evidence/skill-048-final-recheck/observations.json",
+      "result": "2026-11-15 对原失败任务只选择原文件重试，写表仍报 unsupported DML: update primary key on duplicate；重试前后隔离表均为原 2 行且内容不变。",
+      "limits": [
+        "不是缺参数、登录或 Skill 编排问题；当前 dev 源码的修复逻辑尚未在当前生产原场景生效。",
+        "暂存表加显式 SQL 是替代业务路径，不是原自动更新恢复。"
+      ]
+    },
+    {
+      "capability_id": "data-ingestion",
+      "scenario_id": "catalog-csv-bom-crlf-full-fidelity",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "cli": "0.1.8 regular",
+        "skill": "0.3.21",
+        "date": "2026-11-02",
+        "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+        "endpoint": "https://moi.matrixorigin.cn/newmoi",
+        "catalog_id": "2",
+        "fixture": "unique synthetic CSV; database120030; Volume120040",
+        "verification": "independent full-value SQL and local CSV parsing; no UI/wire observation",
+        "case": "INT/VARCHAR显式建表；行1表头，行2开始，位置1/2/3；2行合成数据。",
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "environment": "production / newmoi",
+        "scope": "UTF8 BOM、CRLF、中文emoji与CSV特殊字符"
+      },
+      "evidence": "catalog-boundaries/cb01-data-result.json",
+      "result": "前导零、中文、emoji、引号和换行保持，源文件字节一致",
+      "limits": [
+        "仅本文件、本配置及当前服务；SQL显示字符串转义不单独当作存储字节证据。"
+      ]
+    },
+    {
+      "capability_id": "data-ingestion",
+      "scenario_id": "catalog-header-only-import-download",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "cli": "0.1.8 regular",
+        "skill": "0.3.21",
+        "date": "2026-11-02",
+        "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+        "endpoint": "https://moi.matrixorigin.cn/newmoi",
+        "catalog_id": "2",
+        "fixture": "unique synthetic CSV; database120030; Volume120040",
+        "verification": "independent full-value SQL and local CSV parsing; no UI/wire observation",
+        "case": "18B合法三列表头；显式三列建表。",
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "environment": "production / newmoi",
+        "scope": "合法仅表头CSV创建零行表并导出"
+      },
+      "evidence": "catalog-boundaries/cb02-table.csv",
+      "result": "仅表头导入完成、COUNT=0、下载只有表头",
+      "limits": [
+        "Catalog表下载路径；不证明历史异步SQL零结果下载500已修复。"
+      ]
+    },
+    {
+      "capability_id": "data-ingestion",
+      "scenario_id": "catalog-zero-byte-upload-error",
+      "baseline_status": "partial",
+      "dev_status": "partial",
+      "comparison": "unchanged_gap",
+      "conditions": {
+        "cli": "0.1.8 regular",
+        "skill": "0.3.21",
+        "date": "2026-11-02",
+        "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+        "endpoint": "https://moi.matrixorigin.cn/newmoi",
+        "catalog_id": "2",
+        "fixture": "unique synthetic CSV; database120030; Volume120040",
+        "verification": "independent full-value SQL and local CSV parsing; no UI/wire observation",
+        "case": "零字节文件，向自己的2行表append，位置1/2/3。",
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "environment": "production / newmoi",
+        "scope": "零字节CSV上传边界与目标保持"
+      },
+      "evidence": "catalog-boundaries/cb03-upload.json",
+      "result": "仍ErrServer且status=200，目标两行和Volume两文件保持",
+      "limits": [
+        "不是成功空导入或明确400拒绝；没有任务失败行统计；内部原因和未返回ID的潜在暂存元数据未知；未重发。"
+      ]
+    },
+    {
+      "capability_id": "data-ingestion",
+      "scenario_id": "catalog-reordered-extra-column-mapping",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "cli": "0.1.8 regular",
+        "skill": "0.3.21",
+        "date": "2026-11-02",
+        "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+        "endpoint": "https://moi.matrixorigin.cn/newmoi",
+        "catalog_id": "2",
+        "fixture": "unique synthetic CSV; database120030; Volume120040",
+        "verification": "independent full-value SQL and local CSV parsing; no UI/wire observation",
+        "case": "append；row_id/code/note映射文件位置4/3/2；忽略额外sentinel列。",
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "environment": "production / newmoi",
+        "scope": "列重排与额外列的显式位置映射"
+      },
+      "evidence": "catalog-boundaries/cb04-table.csv",
+      "result": "重排映射后共4行，额外sentinel未入表",
+      "limits": [
+        "显式位置映射，不宣称自动按表头推断；导出按row_id比较，不承诺物理行顺序。"
+      ]
+    },
+    {
+      "capability_id": "data-ingestion",
+      "scenario_id": "catalog-missing-mapped-column-upload-reject",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "cli": "0.1.8 regular",
+        "skill": "0.3.21",
+        "date": "2026-11-02",
+        "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+        "endpoint": "https://moi.matrixorigin.cn/newmoi",
+        "catalog_id": "2",
+        "fixture": "unique synthetic CSV; database120030; Volume120040",
+        "verification": "independent full-value SQL and local CSV parsing; no UI/wire observation",
+        "case": "2列CSV映射到3列目标，note位置3缺失；目标note NOT NULL且仅种子90。",
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "environment": "production / newmoi",
+        "scope": "缺少映射列的预任务拒绝及种子保持"
+      },
+      "evidence": "catalog-boundaries/cb05-after-result.json",
+      "result": "缺列任务400拒绝，种子行seed keep保持",
+      "limits": [
+        "拒绝发生在可观察任务之前；不能据此证明writer执行或数据库NOT NULL约束生效；无失败行统计；内部校验原因未观测。"
+      ]
+    },
+    {
+      "capability_id": "data-export",
+      "scenario_id": "local-csv-full-content",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "1007行合成表/SQL结果本地CSV"
+      },
+      "evidence": "export-integrity/wide-after-change.csv",
+      "result": "1007行表/statement CSV一致，源修改后历史保持",
+      "limits": [
+        "CSV不区分NULL/空串；不外推规模/无限历史。"
+      ]
+    },
+    {
+      "capability_id": "data-export",
+      "scenario_id": "external-connector-export",
+      "baseline_status": "blocked",
+      "dev_status": "blocked",
+      "comparison": "unchanged_gap",
+      "conditions": {
+        "scope": "Connector写外部目标"
+      },
+      "evidence": "",
+      "result": "没有真实隔离外部目标与目标端核验条件",
+      "limits": [
+        "本地下载不等于外部导出通过。"
+      ]
+    },
+    {
+      "capability_id": "data-share",
+      "scenario_id": "selected-sync-unsubscribe",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "选表、接收端、源增删改及退订重订"
+      },
+      "evidence": "../data-share-prod/assertions.json",
+      "result": "选表、源增删改同步、退订、重订阅全部通过",
+      "limits": [
+        "不承诺动态新增表自动共享或修改发布范围。"
+      ]
+    },
+    {
+      "capability_id": "data-share",
+      "scenario_id": "active-publish-direct-delete",
+      "baseline_status": "failed",
+      "dev_status": "passed",
+      "comparison": "improved",
+      "conditions": {
+        "scope": "活跃发布直接删除"
+      },
+      "evidence": "../data-share-prod/active-delete.json",
+      "result": "活跃发布直接删除成功，发布与订阅列表不再含本次对象",
+      "limits": [
+        "先退订再删除成功不能修复直接撤回。"
+      ]
+    },
+    {
+      "capability_id": "data-share",
+      "scenario_id": "unselected-table-denial-semantics",
+      "baseline_status": "partial",
+      "dev_status": "partial",
+      "comparison": "unchanged_gap",
+      "conditions": {
+        "scope": "目标访问未选/新增表"
+      },
+      "evidence": "../data-share-prod/assertions.json",
+      "result": "未选和移除表确实不可读，但错误仍是500/table does not exist；加入表后恢复可读。",
+      "limits": [
+        "不能把物化范围生效说成规范403/404权限语义已经改善。"
+      ]
+    },
+    {
+      "capability_id": "connector-lifecycle",
+      "scenario_id": "connector-config-authoring",
+      "baseline_status": "cli_missing",
+      "dev_status": "passed",
+      "comparison": "improved",
+      "conditions": {
+        "scope": "常规CLI新建/验证/更新需要config"
+      },
+      "evidence": "../contract-checks.json",
+      "result": "Connector 517534000280 创建/读取/更新/删除均成功；两次 validate 均 valid=false，删除后 get 为404。",
+      "limits": [
+        "只证明配置生命周期，不证明真实外部 S3 连通、导入或导出。",
+        "无效端点验证失败是预期拒绝，不能记为有效连接。"
+      ]
+    },
+    {
+      "capability_id": "connector-lifecycle",
+      "scenario_id": "external-connection-verification",
+      "baseline_status": "blocked",
+      "dev_status": "blocked",
+      "comparison": "unchanged_gap",
+      "conditions": {
+        "scope": "真实隔离外部源验证"
+      },
+      "evidence": "",
+      "result": "缺少新的隔离外部源与安全配置条件",
+      "limits": [
+        "schema/命令存在不等于连接通过。"
+      ]
+    },
+    {
+      "capability_id": "compute-lifecycle",
+      "scenario_id": "idle-create-delete",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "隔离IDLE计算创建/预检/删除"
+      },
+      "evidence": "compute/state.json",
+      "result": "CC0创建、IDLE、runtime空、preflight、删除及删除后list/runtime为空",
+      "limits": [
+        "曾超授权5分钟106秒，费用未知；不作负载运行保证。"
+      ]
+    },
+    {
+      "capability_id": "compute-lifecycle",
+      "scenario_id": "loaded-suspend-resume",
+      "baseline_status": "blocked",
+      "dev_status": "blocked",
+      "comparison": "unchanged_gap",
+      "conditions": {
+        "scope": "有负载运行和暂停恢复"
+      },
+      "evidence": "compute/state.json",
+      "result": "未提交负载，未把删除当作真实暂停恢复",
+      "limits": [
+        "不是计算运行实际故障；不为测试强行计费。"
+      ]
+    },
+    {
+      "capability_id": "member-lifecycle",
+      "scenario_id": "test-member-mutations",
+      "baseline_status": "blocked",
+      "dev_status": "blocked",
+      "comparison": "unchanged_gap",
+      "evidence": "calls/members",
+      "result": "生产只有当前超级管理员，没有可安全执行邀请/启停的普通测试成员",
+      "auth": "native",
+      "conditions": {
+        "scope": "邀请/接受/绑定/启停实际测试成员"
+      },
+      "limits": [
+        "只读当前主体不能代替成员生命周期验收。"
+      ]
+    },
+    {
+      "capability_id": "iam-authorization",
+      "scenario_id": "isolated-role-policy-cas",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "evidence": [
+        "iam/receipts/create-role.json",
+        "iam/receipts/app-current.json",
+        "iam/receipts/app-stale.json",
+        "iam/receipts/delete-role.json"
+      ],
+      "result": "零成员角色创建、策略版本推进、旧版本409和精确删除均通过",
+      "auth": "native",
+      "conditions": {
+        "scope": "零成员隔离Role应用策略与陈旧版本"
+      },
+      "limits": [
+        "管理面不证明普通主体SQL allow/deny。"
+      ]
+    },
+    {
+      "capability_id": "iam-authorization",
+      "scenario_id": "revoke-clear-permission-drift",
+      "baseline_status": "failed",
+      "dev_status": "passed",
+      "comparison": "improved",
+      "evidence": [
+        "iam/receipts/data-grant-keep.json",
+        "iam/receipts/data-revoke-clear.json",
+        "iam/receipts/data-after-revoke.json"
+      ],
+      "result": "revoke clear成功，data_privilege_version从1升到2，data-privileges不再返回table.query/70023。",
+      "auth": "native",
+      "conditions": {
+        "scope": "正式row_column.mode=clear正确撤权"
+      },
+      "limits": [
+        "只证明本次in_sync初始授权和当前版本下的clear，不推广到mo_fact_only、损坏或其他历史授权。",
+        "session_invalidation_status=unknown；未验证普通成员会话失效。"
+      ]
+    },
+    {
+      "capability_id": "iam-authorization",
+      "scenario_id": "full-permission-view-decode",
+      "baseline_status": "failed",
+      "dev_status": "passed",
+      "comparison": "improved",
+      "evidence": [
+        "calls/iam-capabilities/response.json",
+        "iam/receipts/role-view.json"
+      ],
+      "result": "能力与角色完整权限视图均可解析，原版未知字段解码问题消失",
+      "auth": "native",
+      "conditions": {
+        "scope": "capabilities/完整permission view读取"
+      },
+      "limits": [
+        "可读data面独立核验不修复完整视图。"
+      ]
+    },
+    {
+      "capability_id": "iam-authorization",
+      "scenario_id": "ordinary-subject-data-enforcement",
+      "baseline_status": "blocked",
+      "dev_status": "blocked",
+      "comparison": "unchanged_gap",
+      "evidence": "calls/members",
+      "result": "没有普通测试成员，未伪造allow/deny身份",
+      "auth": "native",
+      "conditions": {
+        "scope": "普通测试成员实际SELECT allow/deny"
+      },
+      "limits": [
+        "admin查询不证明Role授权。"
+      ]
+    },
+    {
+      "capability_id": "iam-authorization",
+      "scenario_id": "inheritance-canonical-rule",
+      "baseline_status": "partial",
+      "dev_status": "passed",
+      "comparison": "improved",
+      "evidence": [
+        "iam/receipts/app-current.json",
+        "iam/receipts/app-stale.json"
+      ],
+      "result": "子角色50004添加父角色50003后角色图出现继承边，移除后边消失且图版本恢复；双方使用当前 lifecycle_version。",
+      "auth": "native",
+      "conditions": {
+        "scope": "统一edit/继承及canonical规则set"
+      },
+      "limits": [
+        "证明继承关系可增删，不代替普通成员实际 allow/deny。",
+        "role-permission-view只列直接授权，继承结果以role-inheritance-graph为准。"
+      ]
+    },
+    {
+      "capability_id": "agent-conversation",
+      "scenario_id": "tools-and-file-delivery",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "evidence": [
+        "agent-file-summary.json",
+        "codex_full_prod_agent_summary.md"
+      ],
+      "result": "真实SQL查回1行和note，正式文件944字节可下载且内容一致",
+      "auth": "native",
+      "conditions": {
+        "scope": "正式Agent单轮读表、发布文件并下载"
+      },
+      "limits": [
+        "流超时查原task；不外推多轮自动记忆。"
+      ]
+    },
+    {
+      "capability_id": "agent-conversation",
+      "scenario_id": "team-automatic-history",
+      "baseline_status": "failed",
+      "dev_status": "failed",
+      "comparison": "unchanged_gap",
+      "evidence": [
+        "team/receipts/message-history.json",
+        "team/receipts/task-history.json"
+      ],
+      "result": "第一轮记住437和第二轮询问加11的消息均committed/completed，但第二轮回答没有更早的一轮，未回答448；既有运行时核对显示第二轮provider session_turn仍为1。",
+      "auth": "native",
+      "conditions": {
+        "scope": "同Team/context/member连续两轮"
+      },
+      "limits": [
+        "显式携带最少已确认事实可完成后续计算，但只是阶段账本绕行，不能改记自动历史继承通过。",
+        "没有证据表明调用者还需补history、provider session或其他CLI字段；精确根因需产品owner沿共享会话保存、冻结派发和provider历史加载排查。"
+      ]
+    },
+    {
+      "capability_id": "agent-conversation",
+      "scenario_id": "team-exact-message-replay",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "evidence": [
+        "team/receipts/message-first.json",
+        "team/receipts/message-replay.json",
+        "team/receipts/messages-after-replay.json"
+      ],
+      "result": "同键同正文返回原task，消息未重复",
+      "auth": "native",
+      "conditions": {
+        "scope": "同消息键同正文"
+      },
+      "limits": [
+        "不证明同键异文冲突检测。"
+      ]
+    },
+    {
+      "capability_id": "agent-conversation",
+      "scenario_id": "team-changed-content-same-key",
+      "baseline_status": "failed",
+      "dev_status": "failed",
+      "comparison": "unchanged_gap",
+      "evidence": [
+        "team/receipts/message-changed-same-key.json",
+        "team/receipts/messages-after-replay.json"
+      ],
+      "result": "同键异文返回原task且消息总数保持2，新意图未执行；精确重放单独保持幂等。",
+      "auth": "native",
+      "conditions": {
+        "scope": "同消息键不同正文"
+      },
+      "limits": [
+        "不能把精确重放幂等当内容冲突保护。"
+      ]
+    },
+    {
+      "capability_id": "agent-package-resource",
+      "scenario_id": "python-go-tool-runtime",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "evidence": [
+        "agent-content-race/baseline-final-parsed.json",
+        "go-package/go-task-latest.parsed.json"
+      ],
+      "result": "Python weighted=71/423，Go sum=50，均为真实工具调用",
+      "auth": "native",
+      "conditions": {
+        "scope": "Python包及Go纯计算限定工具"
+      },
+      "limits": [
+        "Go稳定加载/完整大包导出、原生依赖另验。"
+      ]
+    },
+    {
+      "capability_id": "agent-package-resource",
+      "scenario_id": "same-version-content-race",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "evidence": [
+        "agent-content-race/race-A.json",
+        "agent-content-race/race-B.json",
+        "agent-content-race/winner-exported.moiagent"
+      ],
+      "result": "同版本不同内容竞争只有一个胜者，可完整导出并实际执行",
+      "auth": "native",
+      "conditions": {
+        "scope": "同Agent同新版本不同内容双请求"
+      },
+      "limits": [
+        "不保证固定赢家/任意规模/default CAS。"
+      ]
+    },
+    {
+      "capability_id": "agent-package-resource",
+      "scenario_id": "go-large-export",
+      "baseline_status": "failed",
+      "dev_status": "passed",
+      "comparison": "improved",
+      "evidence": [
+        "go-package/go-export-summary.json",
+        "go-package/go-exported.moiagent",
+        "go-package/go-export-verify.json"
+      ],
+      "result": "22,043,059字节完整导出，SHA256与原包一致，原版部分文件问题已解决",
+      "auth": "native",
+      "conditions": {
+        "scope": "22043039字节Go包导出"
+      },
+      "limits": [
+        "Python完整导出或Go真实执行不覆盖此失败。"
+      ]
+    },
+    {
+      "capability_id": "agent-skill-tool",
+      "scenario_id": "managed-script-version-freeze",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "evidence": [
+        "attachments-versions/old-final-0-parsed.json",
+        "attachments-corrected/new-final-0-parsed.json",
+        "attachments-corrected/binding-ensure-b-after-default.json"
+      ],
+      "result": "原A任务有真实执行证据；修正切默认后补绑定，B任务也实际执行冻结附件",
+      "auth": "native",
+      "conditions": {
+        "scope": "独立A/B附件包与在途instruction切换"
+      },
+      "limits": [
+        "同ID附件原位更新缺输入。"
+      ]
+    },
+    {
+      "capability_id": "agent-skill-tool",
+      "scenario_id": "same-id-attachment-update",
+      "baseline_status": "cli_missing",
+      "dev_status": "cli_missing",
+      "comparison": "unchanged_gap",
+      "evidence": "agent-update-skill-help.txt",
+      "result": "dev CLI没有update-skill入口，import-skill-package不接受目标Skill ID；通用resource-put只有开放JSON，没有附件上传合同。当前公开API仅提供PATCH元数据和GET附件，ImportSkillPackage固定Version=1并CreateWithFiles，不是同ID附件更新。",
+      "auth": "native",
+      "conditions": {
+        "scope": "同Skill ID原位替换附件"
+      },
+      "limits": [
+        "独立导入新包再切换Agent绑定是替代流程，不是同ID原位更新。",
+        "不能用未验证的resource-put/resource-patch猜测附件字段或发送覆盖请求。"
+      ]
+    },
+    {
+      "capability_id": "agent-skill-tool",
+      "scenario_id": "plugin-skill-body-read",
+      "baseline_status": "failed",
+      "dev_status": "passed",
+      "comparison": "improved",
+      "evidence": "github-skill-summary.json",
+      "result": "使用搜索返回的完整 capability_ref，read-plugin-skill --path SKILL.md 成功返回3574字节正文；正文与本地发布源逐字节一致。此前传 skills/github/SKILL.md 会在服务端再拼接Skill根目录，形成重复路径并404。",
+      "auth": "native",
+      "conditions": {
+        "scope": "GitHubSkill正确引用/路径读取正文"
+      },
+      "limits": [
+        "describe-plugin-capability 返回的 skill_path 是包内完整路径；read-plugin-skill 的 path 是Skill根目录下的相对路径，二者不能直接照抄。",
+        "本结果只覆盖GitHub主Skill正文；嵌套引用应使用 references/... 相对路径，其他插件仍需各自核验。"
+      ]
+    },
+    {
+      "capability_id": "agent-skill-tool",
+      "scenario_id": "oauth-external-events",
+      "baseline_status": "blocked",
+      "dev_status": "blocked",
+      "comparison": "unchanged_gap",
+      "evidence": "calls/plugin-installations",
+      "result": "没有专用OAuth/外部渠道测试条件",
+      "auth": "native",
+      "conditions": {
+        "scope": "OAuth连接或外部渠道真实事件"
+      },
+      "limits": [
+        "无账号MCP成功不外推OAuth/消息事件。"
+      ]
+    },
+    {
+      "capability_id": "agent-skill-tool",
+      "scenario_id": "plugin-lifecycle-pl01",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "evidence": [
+        "calls/install/response.json",
+        "calls/describe-context7/response.json"
+      ],
+      "result": "无账号Context7发现、描述和隔离安装通过",
+      "auth": "native",
+      "conditions": {
+        "scope": "隔离合成小样本：无外部账号插件的发现、描述与隔离安装"
+      },
+      "limits": [
+        "本轮只读公开软件文档；不推广到OAuth/有账号连接插件。",
+        "发布version1.0.0与installation.version1不同对象，不混作同一版本。"
+      ]
+    },
+    {
+      "capability_id": "agent-skill-tool",
+      "scenario_id": "plugin-lifecycle-pl02",
+      "baseline_status": "failed",
+      "dev_status": "failed",
+      "comparison": "unchanged_gap",
+      "evidence": [
+        "calls/duplicate-install/response.json",
+        "calls/installations-after-duplicate-read/response.json"
+      ],
+      "result": "重复安装由旧503变为409 PLUGIN_STATE_CONFLICT，仍未证明可判定的幂等重复语义",
+      "auth": "native",
+      "conditions": {
+        "scope": "隔离合成小样本：相同安装请求的顺序重传"
+      },
+      "limits": [
+        "不是并发、丢包或未知结果重试；没有重提该失败请求。",
+        "未取得服务端日志，根因未知；不能凭reason认定外部Context7故障、账号缺失或幂等成功。"
+      ]
+    },
+    {
+      "capability_id": "agent-skill-tool",
+      "scenario_id": "plugin-lifecycle-pl03",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "evidence": [
+        "calls/update-current/response.json",
+        "calls/update-stale/response.json",
+        "calls/delete-stale/response.json"
+      ],
+      "result": "安装v1→v2后旧版本更新/删除均409，当前版本保持",
+      "auth": "native",
+      "conditions": {
+        "scope": "隔离合成小样本：当前安装版本更新与旧版本写入保护"
+      },
+      "limits": [
+        "仅本轮对象，同release无账号bindings的版本保护；没有升级/降级不同发布或改连接。",
+        "没有停用字段合同；按正式删除入口收尾，不猜enabled参数。"
+      ]
+    },
+    {
+      "capability_id": "agent-skill-tool",
+      "scenario_id": "plugin-lifecycle-pl04",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "evidence": [
+        "installed-task-analysis.json",
+        "calls/installed-task-final-recheck/response.json"
+      ],
+      "result": "真实query-docs返回CPython正文和来源，原任务completed",
+      "auth": "native",
+      "conditions": {
+        "scope": "隔离合成小样本：已安装插件的真实公开文档调用归属"
+      },
+      "limits": [
+        "query-docs返回被运行时摘要截断，保留6614字节和content_sha256；只验可见来源/片段，不宣称全文或最终回答每句均已独立核验。",
+        "运行时返回插件名/ready和当前task选择键，未明示installation ID/version/digest；只能与调用前后唯一Context7安装作有限关联，不能声称精确v2冻结已证明。",
+        "stream因context deadline exceeded退出1；从原事件取taskID后只读get已completed，没有重发模型请求。"
+      ]
+    },
+    {
+      "capability_id": "agent-skill-tool",
+      "scenario_id": "plugin-lifecycle-pl05",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "evidence": [
+        "deleted-task-analysis.json",
+        "calls/final-installations/response.json"
+      ],
+      "result": "卸载后新会话只见installation_required，没有自动重装或query-docs",
+      "auth": "native",
+      "conditions": {
+        "scope": "隔离合成小样本：卸载后新会话只发现未安装态且不自动重装"
+      },
+      "limits": [
+        "没有绕过发现去直接调用旧选择键；不证明旧在途任务令牌或缓存工具已被撤销。",
+        "此场景验收“未安装态阻止正常发现使用并按规则停止”，不等于独立服务端直接调用拒绝测试。",
+        "installation_required是安装前置，不是外部MCP服务故障；本次未调用prepare，因此没有setup_required响应。"
+      ]
+    },
+    {
+      "capability_id": "agent-skill-tool",
+      "scenario_id": "plugin-lifecycle-pl06",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "evidence": [
+        "calls/installed-task-final-recheck/response.json",
+        "calls/final-installations/response.json",
+        "calls/final-bindings/response.json"
+      ],
+      "result": "原完成任务与工具结果保持，原wecom/github安装恢复",
+      "auth": "native",
+      "conditions": {
+        "scope": "隔离合成小样本：原完成结果保留与原安装绑定恢复"
+      },
+      "limits": [
+        "两个task/context及历史工具结果保留；不是物理擦除或删除会话。",
+        "本轮未创建账号连接，仅核已有安装中的binding与Agent绑定保持；没有读取连接秘密或重验原连接的外部可用性。"
+      ]
+    },
+    {
+      "capability_id": "agent-runtime",
+      "scenario_id": "model-channel-check",
+      "baseline_status": "partial",
+      "dev_status": "passed",
+      "comparison": "improved",
+      "evidence": "model-summary.json",
+      "result": "三个模型在agent_chat和knowledge_qa均答对；Kimi知识通道由不可用改善为可用",
+      "auth": "native",
+      "conditions": {
+        "scope": "已发现模型、明确agent_chat/knowledge_qa通道"
+      },
+      "limits": [
+        "模型目录不证明唯一默认路由；不改聚合默认配置。"
+      ]
+    },
+    {
+      "capability_id": "agent-runtime",
+      "scenario_id": "runtime-authoring-inputs",
+      "baseline_status": "cli_missing",
+      "dev_status": "partial",
+      "comparison": "unchanged_gap",
+      "evidence": [
+        "calls/runner-list/response.json",
+        "calls/sandbox-list/response.json"
+      ],
+      "result": "Runner 管理生命周期和 Sandbox 配额保持可用，但 Sandbox create 返回500，未验证终端、网络、配额扩容或负载。",
+      "auth": "native",
+      "conditions": {
+        "scope": "backend/router或Sandbox/Runner配置"
+      },
+      "limits": [
+        "未创建 Sandbox，未连接终端，未验证网络、配额扩容、真实负载或自有 backend。",
+        "Connector 配置生命周期通过不代替外部连接或 Sandbox 执行环境验收。"
+      ]
+    },
+    {
+      "capability_id": "agent-runtime",
+      "scenario_id": "agent-executor-health-read-only",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "evidence": "calls/executor-health/response.json",
+      "result": "执行器健康读取通过",
+      "auth": "native",
+      "conditions": {
+        "cli": "0.1.8 regular",
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "read_only": "true"
+      },
+      "limits": [
+        "健康探测不等于模型调用、Workflow执行或知识库问答成功；不替代真实任务验收。"
+      ]
+    },
+    {
+      "capability_id": "agent-runtime",
+      "scenario_id": "agent-provider-backend-empty-directory",
+      "baseline_status": "partial",
+      "dev_status": "partial",
+      "comparison": "unchanged_gap",
+      "evidence": "calls/provider-backends/response.json",
+      "result": "后端目录为空且Router可读，仍无真实自有backend做端到端验证",
+      "auth": "native",
+      "conditions": {
+        "cli": "0.1.8 regular",
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "read_only": "true"
+      },
+      "limits": [
+        "空backend目录不能解释为模型不可用，也不能证明唯一默认路由；系统模型目录和实际通道调用需独立核验。"
+      ]
+    },
+    {
+      "capability_id": "agent-automation",
+      "scenario_id": "fixed-cron",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "evidence": [
+        "automation-revisions/receipts/run-A-final-result.json",
+        "automation-revisions/receipts/disabled-A-confirm.json"
+      ],
+      "result": "真实cron返回AUTO_PROD_A_AUT1，首条后立即停用",
+      "auth": "native",
+      "conditions": {
+        "scope": "固定指令cron，明确截止、首run即停用"
+      },
+      "limits": [
+        "不是修订后cron或渠道事件。"
+      ]
+    },
+    {
+      "capability_id": "agent-automation",
+      "scenario_id": "fixed-api-pat",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "evidence": [
+        "fixed-api/receipts/create.json",
+        "fixed-api/receipts/archived-confirm.json"
+      ],
+      "result": "固定指令 run 24893446-86df-4cff-9958-fc08b4f819b2 succeeded，final_text=527，trigger_type=api，output_validation=passed，任务已归档。",
+      "auth": "pat_unauthorized",
+      "conditions": {
+        "scope": "同账号安全配置PAT、固定指令API"
+      },
+      "limits": [
+        "只证明固定指令 API，不证明动态参数、严格 JSON 输出或与 Astra 为同一账号。"
+      ]
+    },
+    {
+      "capability_id": "agent-automation",
+      "scenario_id": "dynamic-api-schema-payload",
+      "baseline_status": "failed",
+      "dev_status": "failed",
+      "comparison": "unchanged_gap",
+      "evidence": [
+        "fixed-api/receipts/create.json",
+        "fixed-api/receipts/archived-confirm.json"
+      ],
+      "result": "PAT认证和提交前schema检查均已通过，run确实包含payload.a=19和payload.b=23；但后续Workflow把automation_task_id、trigger_context、payload等整个外层对象按业务a/b schema校验，最终WORKFLOW_SUBMIT_FAILED/INPUT_VALIDATION_FAILED。",
+      "auth": "pat_unauthorized",
+      "conditions": {
+        "scope": "合法业务a/b及input_schema"
+      },
+      "limits": [
+        "不是缺PAT、缺a/b或CLI字段错误；不能通过放宽业务schema、固定指令或重复提交冒充修复。",
+        "缺b的400预期拒绝是另一项已通过能力，不覆盖合法输入失败。"
+      ]
+    },
+    {
+      "capability_id": "agent-automation",
+      "scenario_id": "dynamic-api-structured-output",
+      "baseline_status": "failed",
+      "dev_status": "failed",
+      "comparison": "unchanged_gap",
+      "evidence": [
+        "fixed-api/receipts/create.json",
+        "fixed-api/receipts/archived-confirm.json"
+      ],
+      "result": "动态payload已保存，但模型回答未收到a/b，structured_output为空，最终OUTPUT_CONTRACT_VALIDATION_FAILED。当前源码的conversationTurnInput在没有显式message_parts时只把instruction_text放入模型消息，没有投影command.Payload，与生产现象一致。",
+      "auth": "pat_unauthorized",
+      "conditions": {
+        "scope": "无input_schema、有业务Payload、严格输出"
+      },
+      "limits": [
+        "本项失败可由动态参数未进入模型解释；现有证据不单独证明严格JSON输出校验器本身有独立缺陷。",
+        "空output_contract或固定指令返回527不能替代动态参数加严格JSON输出验收。"
+      ]
+    },
+    {
+      "capability_id": "agent-automation",
+      "scenario_id": "channel-events",
+      "baseline_status": "unverified",
+      "dev_status": "blocked",
+      "comparison": "unchanged_gap",
+      "evidence": "calls/callback-rules/response.json",
+      "result": "没有真实外部callback/channel/OAuth事件条件",
+      "auth": "native",
+      "conditions": {
+        "scope": "外部callback/channel/OAuth真实事件"
+      },
+      "limits": [
+        "只读规则或连接存在不证明事件成功。"
+      ]
+    },
+    {
+      "capability_id": "agent-automation",
+      "scenario_id": "automation-revisions-ar-01",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "evidence": [
+        "automation-revisions/receipts/create.json",
+        "automation-revisions/receipts/created-runs-empty.json"
+      ],
+      "result": "停用创建和系统Agent绑定通过",
+      "auth": "native",
+      "conditions": {
+        "scope": "隔离合成小样本：停用创建并绑定正式系统Agent"
+      },
+      "limits": [
+        "配置证明不等于底层模型路由证明；未改Agent本身。"
+      ]
+    },
+    {
+      "capability_id": "agent-automation",
+      "scenario_id": "automation-revisions-ar-02",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "evidence": [
+        "automation-revisions/receipts/run-A-final-result.json",
+        "automation-revisions/receipts/disabled-A-confirm.json"
+      ],
+      "result": "旧版真实cron成功并及时停用",
+      "auth": "native",
+      "conditions": {
+        "scope": "隔离合成小样本：旧版真实cron运行后立即停用"
+      },
+      "limits": [
+        "空output_contract的passed不证明严格JSON；未取得runtime_task_id或底层模型参数。"
+      ]
+    },
+    {
+      "capability_id": "agent-automation",
+      "scenario_id": "automation-revisions-ar-03",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "evidence": "automation-revisions/receipts/revision-confirm.json",
+      "result": "disabled时修订指令和cron，版本v2且v1历史保持",
+      "auth": "native",
+      "conditions": {
+        "scope": "隔离合成小样本：停用时修订指令和cron并保留版本归属"
+      },
+      "limits": [
+        "正式caller无expected_version/CAS字段，不宣称陈旧写保护；只测试一个连续修订。"
+      ]
+    },
+    {
+      "capability_id": "agent-automation",
+      "scenario_id": "automation-revisions-ar-04",
+      "baseline_status": "partial",
+      "dev_status": "partial",
+      "comparison": "unchanged_gap",
+      "evidence": [
+        "automation-revisions/receipts/timeout-disabled-B-confirm.json"
+      ],
+      "result": "v2 指令、cron、active和next_trigger_at正确，但200秒内无v2 run且当前无晚到记录；独立替换任务 cron succeeded。",
+      "auth": "native",
+      "conditions": {
+        "scope": "隔离合成小样本：修订版真实cron运行归属"
+      },
+      "limits": [
+        "Do not generalize to every revised task; do not reactivate the archived object; replacement does not repair revision scheduling."
+      ]
+    },
+    {
+      "capability_id": "agent-automation",
+      "scenario_id": "automation-revisions-ar-05",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "evidence": [
+        "automation-revisions/receipts/archive.json",
+        "automation-revisions/receipts/archived-reactivate.json"
+      ],
+      "result": "精确归档且重新启用被400拒绝",
+      "auth": "native",
+      "conditions": {
+        "scope": "隔离合成小样本：精确归档并拒绝重新启用"
+      },
+      "limits": [
+        "归档为软保留，不是硬删除；有限窗口无新run不等于永久保证，底层托管调度资源未独立枚举。"
+      ]
+    },
+    {
+      "capability_id": "agent-automation",
+      "scenario_id": "automation-revisions-ar-06",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "evidence": [
+        "automation-revisions/receipts/run-A-archived-result.json",
+        "automation-revisions/receipts/run-A-archived-events.json"
+      ],
+      "result": "归档后原run/result/events完整保持",
+      "auth": "native",
+      "conditions": {
+        "scope": "隔离合成小样本：修订与归档后历史和旁观对象保持"
+      },
+      "limits": [
+        "仅核验公开对象值；未检查服务内部存储、provider日志或真实页面。"
+      ]
+    },
+    {
+      "capability_id": "agent-automation",
+      "scenario_id": "agent-channel-list-requires-id",
+      "baseline_status": "partial",
+      "dev_status": "passed",
+      "comparison": "improved",
+      "evidence": [
+        "calls/channel-wecom/response.json",
+        "calls/channel-slack/response.json",
+        "calls/channel-feishu/response.json"
+      ],
+      "result": "wecom/slack/feishu均返回标准空列表；省略provider时CLI提示先查list-connector-catalog，目录可返回实际provider及configured状态。",
+      "auth": "native",
+      "conditions": {
+        "cli": "0.1.8 regular",
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "command": "agent list-channel-instances",
+        "read_only": "true"
+      },
+      "limits": [
+        "provider是必要筛选条件，不是无条件全量列表；空实例列表不代表外部事件或OAuth已通过。"
+      ]
+    },
+    {
+      "capability_id": "agent-automation",
+      "scenario_id": "agent-channel-provider-filtered-list",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "evidence": [
+        "calls/channel-wecom/response.json",
+        "calls/channel-slack/response.json",
+        "calls/channel-feishu/response.json"
+      ],
+      "result": "wecom/slack/feishu筛选列表均可读",
+      "auth": "native",
+      "conditions": {
+        "cli": "0.1.8 regular",
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "providers": "wecom, slack, feishu",
+        "read_only": "true"
+      },
+      "limits": [
+        "当前没有可用渠道实例；不代表OAuth、连接验证、渠道事件或外部消息已通过。"
+      ]
+    },
+    {
+      "capability_id": "agent-automation",
+      "scenario_id": "agent-callback-rules-empty-list",
+      "baseline_status": "partial",
+      "dev_status": "passed",
+      "comparison": "improved",
+      "evidence": "calls/callback-rules/response.json",
+      "result": "list-callback-rules返回items=[]、total=0、limit=50、offset=0，空列表结构完整。",
+      "auth": "native",
+      "conditions": {
+        "cli": "0.1.8 regular",
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "read_only": "true"
+      },
+      "limits": [
+        "只证明当前范围空列表读取，不证明OAuth、真实事件、渠道连接或回调投递。"
+      ]
+    },
+    {
+      "capability_id": "sql-query",
+      "scenario_id": "bounded-read-download",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "固定资产有界非空SELECT"
+      },
+      "evidence": [
+        "production-sql-reconciliation/historical-result.json",
+        "production-sql-reconciliation/historical-initial.csv"
+      ],
+      "result": "生产非空查询的 statement 结果与 CSV 一致",
+      "limits": [
+        "结果展示窗口不是严格SQL行数上限。"
+      ]
+    },
+    {
+      "capability_id": "sql-query",
+      "scenario_id": "inline-zero-row",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "正式sql run另起零行SELECT"
+      },
+      "evidence": [
+        "sql-history-zero/summary.json"
+      ],
+      "result": "内联零行返回 success 和列结构",
+      "limits": [
+        "另一次查询，不修复原异步结果或授权无说明重执行。"
+      ]
+    },
+    {
+      "capability_id": "sql-query",
+      "scenario_id": "async-zero-row-download",
+      "baseline_status": "failed",
+      "dev_status": "failed",
+      "comparison": "unchanged_gap",
+      "conditions": {
+        "scope": "原异步零行statement结果及CSV"
+      },
+      "evidence": [
+        "sql-history-zero/summary.json"
+      ],
+      "result": "原异步空结果读取和下载仍失败",
+      "limits": [
+        "非零NULL对照或内联成功不能覆盖原失败。"
+      ]
+    },
+    {
+      "capability_id": "sql-query",
+      "scenario_id": "workbook-version-governance",
+      "baseline_status": "partial",
+      "dev_status": "partial",
+      "comparison": "unchanged_gap",
+      "conditions": {
+        "scope": "同workbook草稿/finalize/save和跨workbook版本"
+      },
+      "evidence": [
+        "sql-workbook/assertions.json"
+      ],
+      "result": "同ID重存仍可能覆盖，但保存前重读可识别顺序陈旧快照并另建版本，A=328、B=369。",
+      "limits": [
+        "真正并发仍需单一写入者或外部协调，不能把本地重读当成服务端CAS。"
+      ]
+    },
+    {
+      "capability_id": "sql-query",
+      "scenario_id": "sql-reconciliation-sr-01",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "隔离合成小样本：三表对账与一对多放大对照"
+      },
+      "evidence": [
+        "production-sql-reconciliation/assertions.json"
+      ],
+      "result": "原版通过场景在生产 dev 保持",
+      "limits": [
+        "只覆盖约定payment/refund和6订单，订单状态/退款归属需用户业务合同，非财务产品通用正确性。"
+      ]
+    },
+    {
+      "capability_id": "sql-query",
+      "scenario_id": "sql-reconciliation-sr-02",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "隔离合成小样本：孤儿数据与异常识别"
+      },
+      "evidence": [
+        "production-sql-reconciliation/assertions.json"
+      ],
+      "result": "原版通过场景在生产 dev 保持",
+      "limits": [
+        "LEFT JOIN未显示孤儿不等于源没有异常；本例非自动修复全部异常。"
+      ]
+    },
+    {
+      "capability_id": "sql-query",
+      "scenario_id": "sql-reconciliation-sr-03",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "隔离合成小样本：晚到修订与顺序冲突"
+      },
+      "evidence": [
+        "production-sql-reconciliation/assertions.json"
+      ],
+      "result": "原版通过场景在生产 dev 保持",
+      "limits": [
+        "ROW_NUMBER按明确revision,row_id排序；不承诺无版本数据的自动冲突解决。"
+      ]
+    },
+    {
+      "capability_id": "sql-query",
+      "scenario_id": "sql-reconciliation-sr-04",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "隔离合成小样本：按业务主键替换并重复执行"
+      },
+      "evidence": [
+        "production-sql-reconciliation/assertions.json"
+      ],
+      "result": "原版通过场景在生产 dev 保持",
+      "limits": [
+        "Codex在正式CLI查询后生成显式upsert；初始物化来自已核fixture，修订物化来自真实查询结果。仅本次确定主键替换，不是跨表原子同步或任意执行幂等。"
+      ]
+    },
+    {
+      "capability_id": "sql-query",
+      "scenario_id": "sql-reconciliation-sr-05",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "隔离合成小样本：同请求事务提交与错误后的独立核验"
+      },
+      "evidence": [
+        "production-sql-reconciliation/assertions.json"
+      ],
+      "result": "原版通过场景在生产 dev 保持",
+      "limits": [
+        "只验证本次同请求事务与重复主键错误；不把BEGIN/COMMIT拆CLI，也不推广Workflow/外发回滚或未知断连。"
+      ]
+    },
+    {
+      "capability_id": "sql-query",
+      "scenario_id": "sql-reconciliation-sr-06",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "隔离合成小样本：当前物化与原查询历史及精确清理"
+      },
+      "evidence": [
+        "production-sql-reconciliation/assertions.json"
+      ],
+      "result": "原版通过场景在生产 dev 保持",
+      "limits": [
+        "查询历史仍在，无物理擦除或无限保留承诺；没有重跑所有旧纵向。"
+      ]
+    },
+    {
+      "capability_id": "sql-query",
+      "scenario_id": "sql-reconciliation-sr-07",
+      "baseline_status": "failed",
+      "dev_status": "failed",
+      "comparison": "unchanged_gap",
+      "conditions": {
+        "scope": "隔离合成小样本：单条标量子查询统计"
+      },
+      "evidence": [
+        "production-sql-reconciliation/final-counts.json",
+        "production-sql-reconciliation/final-counts-union.json",
+        "sql-reconciliation/final-counts.json"
+      ],
+      "result": "生产仍为405，与原版相同；QA曾改善为通过，不能外推。独立UNION计数正确",
+      "limits": [
+        "原请求仍失败，内部原因未知；新查询成功不是修复原请求，也不推成所有标量子查询不支持。"
+      ]
+    },
+    {
+      "capability_id": "sql-query",
+      "scenario_id": "sql-large-values-json-fidelity",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "environment": "production / newmoi",
+        "input": "bounded synthetic SQL constants; helper cases use installed Skill 0.3.21",
+        "path": "sql-large-values-json-fidelity",
+        "scope": "sql-large-values-json-fidelity"
+      },
+      "evidence": [
+        "production-sql-fidelity/assertions.json"
+      ],
+      "result": "原版通过场景在生产 dev 保持",
+      "limits": [
+        "只验证一行常量与这些类型；UTC后缀不是跨时区转换证据。"
+      ]
+    },
+    {
+      "capability_id": "sql-query",
+      "scenario_id": "sql-csv-nonnull-precision-multiline",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "environment": "production / newmoi",
+        "input": "bounded synthetic SQL constants; helper cases use installed Skill 0.3.21",
+        "path": "sql-csv-nonnull-precision-multiline",
+        "scope": "sql-csv-nonnull-precision-multiline"
+      },
+      "evidence": [
+        "production-sql-fidelity/assertions.json"
+      ],
+      "result": "原版通过场景在生产 dev 保持",
+      "limits": [
+        "按csv.reader逐格核对，不经浮点或电子表格自动转换；不含NULL/空串区分。"
+      ]
+    },
+    {
+      "capability_id": "sql-query",
+      "scenario_id": "sql-csv-null-empty-distinction",
+      "baseline_status": "failed",
+      "dev_status": "failed",
+      "comparison": "unchanged_gap",
+      "conditions": {
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "environment": "production / newmoi",
+        "input": "bounded synthetic SQL constants; helper cases use installed Skill 0.3.21",
+        "path": "sql-csv-null-empty-distinction",
+        "scope": "sql-csv-null-empty-distinction"
+      },
+      "evidence": [
+        "production-sql-fidelity/assertions.json"
+      ],
+      "result": "生产 CSV 中 NULL 与空串仍为空白；JSON 可区分",
+      "limits": [
+        "这是本样例CSV表达限制，不断言后端根因或所有CSV格式；需要区分时保留JSON Valid及列类型，不能宣称CSV无损往返。"
+      ]
+    },
+    {
+      "capability_id": "sql-query",
+      "scenario_id": "sql-repeated-alias-returned-metadata",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "environment": "production / newmoi",
+        "input": "bounded synthetic SQL constants; helper cases use installed Skill 0.3.21",
+        "path": "sql-repeated-alias-returned-metadata",
+        "scope": "sql-repeated-alias-returned-metadata"
+      },
+      "evidence": [
+        "production-sql-fidelity/assertions.json"
+      ],
+      "result": "原版通过场景在生产 dev 保持",
+      "limits": [
+        "按实际metadata及列位置解释；不硬编码所有场景的改名规律。"
+      ]
+    },
+    {
+      "capability_id": "sql-query",
+      "scenario_id": "sql-inline-decimal-constants-405",
+      "baseline_status": "failed",
+      "dev_status": "failed",
+      "comparison": "unchanged_gap",
+      "conditions": {
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "environment": "production / newmoi",
+        "input": "bounded synthetic SQL constants; helper cases use installed Skill 0.3.21",
+        "path": "sql-inline-decimal-constants-405",
+        "scope": "sql-inline-decimal-constants-405"
+      },
+      "evidence": [
+        "production-sql-fidelity/durable-real-task/evidence/calculate-001/response.json",
+        "production-sql-fidelity/decimal-async-state.json"
+      ],
+      "result": "生产内联仍为405，与原版相同；异步精确计算通过",
+      "limits": [
+        "该失败只针对本次入口与SQL；无抓包/部署commit，根因未知，不说小数运算整体不支持。"
+      ]
+    },
+    {
+      "capability_id": "sql-query",
+      "scenario_id": "sql-async-decimal-constants-exact",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "environment": "production / newmoi",
+        "input": "bounded synthetic SQL constants; helper cases use installed Skill 0.3.21",
+        "path": "sql-async-decimal-constants-exact",
+        "scope": "sql-async-decimal-constants-exact"
+      },
+      "evidence": [
+        "production-sql-fidelity/assertions.json"
+      ],
+      "result": "原版通过场景在生产 dev 保持",
+      "limits": [
+        "这是独立SELECT，不是取回原内联任务，也没有修复原405；不得用于重跑未知写SQL。",
+        "实际冻结文件仅差一个末尾换行；称同内容SQL，不称逐字节相同请求。"
+      ]
+    },
+    {
+      "capability_id": "sql-query",
+      "scenario_id": "sql-live-task-resume-original-statement",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "environment": "production / newmoi",
+        "input": "bounded synthetic SQL constants; helper cases use installed Skill 0.3.21",
+        "path": "sql-live-task-resume-original-statement",
+        "scope": "sql-live-task-resume-original-statement"
+      },
+      "evidence": [
+        "production-sql-fidelity/assertions.json"
+      ],
+      "result": "原版通过场景在生产 dev 保持",
+      "limits": [
+        "只验证固定只读结果的真实接续；不等于所有写任务可自动恢复。"
+      ]
+    },
+    {
+      "capability_id": "sql-query",
+      "scenario_id": "sql-live-failed-task-keeps-incomplete",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "environment": "production / newmoi",
+        "input": "bounded synthetic SQL constants; helper cases use installed Skill 0.3.21",
+        "path": "sql-live-failed-task-keeps-incomplete",
+        "scope": "sql-live-failed-task-keeps-incomplete"
+      },
+      "evidence": [
+        "production-sql-fidelity/assertions.json"
+      ],
+      "result": "原版通过场景在生产 dev 保持",
+      "limits": [
+        "保护行为通过不把原业务失败算通过；无原query ID仍不能补出旧结果，不能重放。"
+      ]
+    },
+    {
+      "capability_id": "dashboard-analytics",
+      "scenario_id": "single-table-chart-drill",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "单表x/y配置、role:x、east两行"
+      },
+      "evidence": [
+        "production/assertions.json"
+      ],
+      "result": "生产 native 下查询、快照钻取、源变更、显式同步和精确清理均通过",
+      "limits": [
+        "不代表JOIN、UI或任意预览行数。"
+      ]
+    },
+    {
+      "capability_id": "dashboard-analytics",
+      "scenario_id": "scheduled-refresh",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "5m隔离看板，后续真实cron"
+      },
+      "evidence": [
+        "production-schedule/summary.json",
+        "production-schedule/scheduled-run-result.json",
+        "production-schedule/scheduled-chart-result.json"
+      ],
+      "result": "生产两个不同 cron execution 均完成，第二次结果与图表数据一致",
+      "limits": [
+        "创建后首次立即执行不计周期验收。"
+      ]
+    },
+    {
+      "capability_id": "dashboard-analytics",
+      "scenario_id": "zero-row-result-download",
+      "baseline_status": "failed",
+      "dev_status": "failed",
+      "comparison": "unchanged_gap",
+      "conditions": {
+        "scope": "合法零行图表执行completed"
+      },
+      "evidence": [
+        "dashboard-zero/summary.json"
+      ],
+      "result": "已有合法零行 execution completed，但 chart-result 与 CSV 下载失败；本轮未重复创建看板。",
+      "limits": [
+        "非零结果或执行 completed 不能覆盖空结果交付失败；at 是时间参数，不是 execution ID。"
+      ]
+    },
+    {
+      "capability_id": "dashboard-analytics",
+      "scenario_id": "dashboard-relations-drel01",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "隔离合成小样本：事实表和维度表：两张JOIN聚合图与独立SQL、CSV一致"
+      },
+      "evidence": [
+        "production/assertions.json"
+      ],
+      "result": "生产 native 下查询、快照钻取、源变更、显式同步和精确清理均通过",
+      "limits": [
+        "只验证接口数值与下载；未验证页面渲染、自动刷新和告警。"
+      ]
+    },
+    {
+      "capability_id": "dashboard-analytics",
+      "scenario_id": "dashboard-relations-drel02",
+      "baseline_status": "partial",
+      "dev_status": "partial",
+      "comparison": "unchanged_gap",
+      "conditions": {
+        "scope": "隔离合成小样本：JOIN图表的原生钻取及明细下载边界"
+      },
+      "evidence": [
+        "production/join-drill-a.json",
+        "production/join-drill-b.json"
+      ],
+      "result": "原生 JOIN 钻取参数完整但仍400，request_id=b2032785-b9dc-4aa6-92cb-a90a75468bef；物理快照钻取和CSV可用。",
+      "limits": [
+        "Snapshot is separately maintained and does not fix native JOIN drill or provide atomic synchronization."
+      ]
+    },
+    {
+      "capability_id": "dashboard-analytics",
+      "scenario_id": "dashboard-relations-drel03",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "隔离合成小样本：显式物理快照：钻取保留原过滤条件、下载与输入拒绝"
+      },
+      "evidence": [
+        "production/assertions.json"
+      ],
+      "result": "生产 native 下查询、快照钻取、源变更、显式同步和精确清理均通过",
+      "limits": [
+        "这是额外物理快照，不是实时JOIN钻取。",
+        "钻取预览上限10，本例仅2行；未测超过10行截断。",
+        "C图创建自动执行与手动执行ID不同，分别回读历史，未混认。"
+      ]
+    },
+    {
+      "capability_id": "dashboard-analytics",
+      "scenario_id": "dashboard-relations-drel04",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "隔离合成小样本：源新增、修改、删除及维度改名后：整板刷新与旧历史"
+      },
+      "evidence": [
+        "production/assertions.json"
+      ],
+      "result": "生产 native 下查询、快照钻取、源变更、显式同步和精确清理均通过",
+      "limits": [
+        "本例顺序DML后刷新，不承诺跨多个写入的事务快照或自动调度实时性。"
+      ]
+    },
+    {
+      "capability_id": "dashboard-analytics",
+      "scenario_id": "dashboard-relations-drel05",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "隔离合成小样本：显式同步物理快照后：图表、钻取与下载恢复为新值"
+      },
+      "evidence": [
+        "production/assertions.json"
+      ],
+      "result": "生产 native 下查询、快照钻取、源变更、显式同步和精确清理均通过",
+      "limits": [
+        "同步由操作者显式执行；清空和重填是两步，未测试事务一致性或并发读窗口。"
+      ]
+    },
+    {
+      "capability_id": "dashboard-analytics",
+      "scenario_id": "dashboard-relations-drel06",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "隔离合成小样本：调整顺序、删除单图，兄弟图和源数据保持完整"
+      },
+      "evidence": [
+        "production/assertions.json"
+      ],
+      "result": "生产删除单图、兄弟图和源数据保持通过",
+      "limits": [
+        "只证实配置保存，未验证页面拖拽和布局渲染。",
+        "另查A的dashboard-owned statement经SQL编辑器入口404，但此前没有从该入口读过，不能归因于删除。",
+        "404不证明历史被物理擦除。"
+      ]
+    },
+    {
+      "capability_id": "dashboard-analytics",
+      "scenario_id": "dashboard-relations-drel07",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "隔离合成小样本：只清理本轮看板、三张表和数据库，并逐ID确认"
+      },
+      "evidence": [
+        "production/assertions.json"
+      ],
+      "result": "生产看板、三表和数据库按真实 ID 精确清理并回读 404",
+      "limits": [
+        "清理结论限于正式入口不可读；不声称底层存储、审计或历史记录已物理擦除。",
+        "database-children清理时返回{}，没有据此单独判空，而是依赖逐表404。"
+      ]
+    },
+    {
+      "capability_id": "workspace-context",
+      "scenario_id": "workspace-role-read",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "scope": "用户选定测试workspace、native当前主体只读"
+      },
+      "evidence": [
+        "../生产环境续跑规则.md"
+      ],
+      "result": "生产 native 预检查、两个 workspace 和权限详情读取通过",
+      "limits": [
+        "可读不等于普通主体授权放行；不选择首项。"
+      ]
+    },
+    {
+      "capability_id": "audit-observation",
+      "scenario_id": "known-request-audit",
+      "baseline_status": "partial",
+      "dev_status": "passed",
+      "comparison": "improved",
+      "conditions": {
+        "scope": "已知虚构请求安全投影"
+      },
+      "evidence": [
+        "production-audit/verification-summary.json"
+      ],
+      "result": "生产分页、筛选和本对象请求关联均通过",
+      "limits": [
+        "默认20条，无正式完整分页；首屏无记录不等于未发生。"
+      ]
+    },
+    {
+      "capability_id": "audit-observation",
+      "scenario_id": "sql-history-time-range",
+      "baseline_status": "cli_missing",
+      "dev_status": "passed",
+      "comparison": "improved",
+      "conditions": {
+        "scope": "SQL历史详情/profile的start/end"
+      },
+      "evidence": [
+        "production/history-summary.json",
+        "production/history-calls/detail/response.json",
+        "production/history-calls/profile/response.json"
+      ],
+      "result": "生产 dev 新参数使原 CLI 缺口变为可用",
+      "limits": [
+        "不能猜时间或ID绕过。"
+      ]
+    },
+    {
+      "capability_id": "audit-observation",
+      "scenario_id": "sql-history-overview-read-only",
+      "baseline_status": "passed",
+      "dev_status": "passed",
+      "comparison": "preserved",
+      "conditions": {
+        "cli": "0.1.8 regular",
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "read_only": "true"
+      },
+      "evidence": [
+        "sql-history-zero/calls/history-overview/response.json"
+      ],
+      "result": "概览读取保持通过",
+      "limits": [
+        "这是统计概览，不代表能读取每条历史详情或按时间筛选。"
+      ]
+    },
+    {
+      "capability_id": "audit-observation",
+      "scenario_id": "sql-history-list-contract",
+      "baseline_status": "partial",
+      "dev_status": "passed",
+      "comparison": "improved",
+      "conditions": {
+        "cli": "0.1.8 regular",
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "read_only": "true"
+      },
+      "evidence": [
+        "production/history-calls/history/response.json"
+      ],
+      "result": "生产按 statement 筛选返回真实 query_list 记录，不再只有 limit",
+      "limits": [
+        "服务端是否按主体、默认参数或响应解码丢字段未定；没有猜时间参数。"
+      ]
+    },
+    {
+      "capability_id": "audit-observation",
+      "scenario_id": "sql-query-detail-profile-known-statement",
+      "baseline_status": "failed",
+      "dev_status": "passed",
+      "comparison": "improved",
+      "conditions": {
+        "cli": "0.1.8 regular",
+        "workspace": "测试/d175f639-2846-3433-6e24-43b4a53bee6b",
+        "statement_id": "01a19c45-59c9-77d7-b975-710c451454e3",
+        "read_only": "true"
+      },
+      "evidence": [
+        "production/history-calls/detail/response.json",
+        "production/history-calls/profile/response.json"
+      ],
+      "result": "生产原 400 改善为详情和 profile 可读",
+      "limits": [
+        "该statement来自同一批隔离只读查询；错误根因、是否需要其它标识或权限仍未知；不称后端功能整体不存在。"
+      ]
+    }
+  ],
+  "summary": {
+    "environment": "production",
+    "auth": "native（固定API场景的PAT检查另行记录）",
+    "cli_version": "0.1.0-dev.d5c5c3a",
+    "skill_version": "0.4.8",
+    "baseline_total": 125,
+    "baseline_passed": 72,
+    "baseline_passed_preserved": 71,
+    "improvements": 22,
+    "original_pass_blockers": 1,
+    "dev_status": {
+      "passed": 93,
+      "partial": 8,
+      "failed": 16,
+      "blocked": 7,
+      "cli_missing": 1
+    },
+    "groups": {
+      "workflow-knowledge": {
+        "total": 24,
+        "dev_status": {
+          "passed": 19,
+          "partial": 1,
+          "failed": 4
+        }
+      },
+      "data-assets": {
+        "total": 25,
+        "dev_status": {
+          "passed": 18,
+          "partial": 2,
+          "failed": 2,
+          "blocked": 3
+        }
+      },
+      "agent-governance": {
+        "total": 41,
+        "dev_status": {
+          "passed": 28,
+          "partial": 3,
+          "failed": 5,
+          "blocked": 4,
+          "cli_missing": 1
+        }
+      },
+      "query-analytics": {
+        "total": 35,
+        "dev_status": {
+          "passed": 28,
+          "partial": 2,
+          "failed": 5
+        }
+      }
+    },
+    "release_gate_passed": false,
+    "blockers": [
+      {
+        "capability_id": "job-recovery",
+        "scenario_id": "pause-resume-cancel",
+        "dev_status": "partial",
+        "evidence": [
+          {
+            "source_id": "dev-full-regression-20261114",
+            "record": "state.json#execution_controls + calls/controls-cancel-paused-resume-rejected/response.json"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "environment": "production",
+  "auth": "native",
+  "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+  "cli_channel": "candidate",
+  "cli_version": "0.1.0-dev.d5c5c3a",
+  "validated_on": "2026-11-15",
+  "observations": [
+    {
+      "capability_id": "source-staging",
+      "scenario_id": "agent-file-lifecycle",
+      "status": "passed",
+      "conditions": {
+        "scope": "desktop workspace file upload, download, isolated Volume placement and deletion"
+      },
+      "result": "115字节文件上传/下载MD5和SHA256一致；挂载前无placement，挂载后1处，删除后下载404、placement=0、Volume=0，隔离Volume和数据库清理后均404。",
+      "limits": [
+        "仅证明桌面workspace file生命周期，不代替runtime task publish-artifact或跨身份权限验收。",
+        "无placement删除仍需先建立明确隔离挂载，不能作为用户历史文件默认补救。"
+      ],
+      "evidence": "calls/upload-workspace-file + calls/download-runtime-file + calls/list-runtime-placement + calls/download-deleted-runtime-file + calls/deleted-database-children"
+    },
+    {
+      "capability_id": "agent-automation",
+      "scenario_id": "agent-callback-rules-empty-list",
+      "status": "passed",
+      "conditions": {
+        "scope": "read-only callback rule list when no rules exist"
+      },
+      "result": "list-callback-rules返回items=[]、total=0、limit=50、offset=0，空列表结构完整。",
+      "limits": [
+        "只证明当前范围空列表读取，不证明OAuth、真实事件、渠道连接或回调投递。"
+      ],
+      "evidence": "calls/callback-rules"
+    },
+    {
+      "capability_id": "agent-automation",
+      "scenario_id": "agent-channel-list-requires-id",
+      "status": "passed",
+      "conditions": {
+        "scope": "provider discovery and filtered channel lists with no channel instances"
+      },
+      "result": "wecom/slack/feishu均返回标准空列表；省略provider时CLI提示先查list-connector-catalog，目录可返回实际provider及configured状态。",
+      "limits": [
+        "provider是必要筛选条件，不是无条件全量列表；空实例列表不代表外部事件或OAuth已通过。"
+      ],
+      "evidence": "calls/channel-wecom + calls/channel-slack + calls/channel-feishu + calls/channel-missing-provider + calls/connector-catalog"
+    },
+    {
+      "capability_id": "agent-runtime",
+      "scenario_id": "runner-create-refresh-delete-lifecycle",
+      "status": "passed",
+      "conditions": {
+        "scope": "custom runner create, get, list, refresh and delete without connecting"
+      },
+      "result": "runner 055b2061创建后phase=pending，get/list可读，refresh返回新一次性连接材料，delete成功，最终list为空。",
+      "limits": [
+        "未运行connect_cmd、未建立runner连接或执行计算任务，不证明终端/网络/配额或负载。",
+        "一次性连接材料已从证据脱敏。"
+      ],
+      "evidence": "calls/runner-create + calls/runner-get + calls/runner-refresh + calls/runner-delete + calls/runner-list-after-delete"
+    },
+    {
+      "capability_id": "agent-runtime",
+      "scenario_id": "runtime-authoring-inputs",
+      "status": "partial",
+      "conditions": {
+        "scope": "runner lifecycle and sandbox typed input shapes without sandbox creation"
+      },
+      "result": "Runner创建/读取/刷新/删除已打通；Sandbox create/update-network/update-quota的typed输入结构已确认，自有backend目录为空且Router配置可读。",
+      "limits": [
+        "未创建Sandbox、未连接终端、未验证网络/配额/负载，不能据此宣称完整运行环境。",
+        "空backend目录仍需真实自有backend才能做端到端验证。"
+      ],
+      "evidence": "calls/runner-create + calls/runner-list-after-delete + offline/sandbox-create-schema.json + calls/provider-backends + calls/workspace-llm-router"
+    }
+  ]
+}

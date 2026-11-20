@@ -1,0 +1,4 @@
+interface:
+  display_name: "MOI CLI"
+  short_description: "Use MOI from Codex through the latest dev moi-cli procedures"
+  default_prompt: "Use $moi-cli to complete this MOI workspace, Catalog, SQL, file, workflow, or knowledge task."

@@ -1,0 +1,88 @@
+{
+  "environment": "production",
+  "auth": "native",
+  "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+  "cli_channel": "candidate",
+  "cli_version": "0.1.0-dev.d5c5c3a",
+  "validated_on": "2026-11-15",
+  "observations": [
+    {
+      "capability_id": "sql-query",
+      "scenario_id": "workbook-sequential-stale-write-guard",
+      "status": "passed",
+      "conditions": {
+        "scope": "two writers share an old SQL snapshot; first saves; second rereads before saving"
+      },
+      "result": "第二人重读发现 A 已从41×7变为41×8，未提交旧保存，另建 B 得41×9；A=328、B=369且正文各自保留。",
+      "limits": [
+        "只证明顺序陈旧写入可由调用方阻止，不是服务端CAS、不可变save或并发合并。"
+      ],
+      "evidence": "state.json#workbook_guard + calls/workbook-stale-reread + calls/workbook-final-detail-a + calls/workbook-final-detail-b"
+    },
+    {
+      "capability_id": "sql-query",
+      "scenario_id": "workbook-version-governance",
+      "status": "partial",
+      "conditions": {
+        "scope": "same-ID save remains allowed without server CAS; sequential stale writes are guarded by reread"
+      },
+      "result": "同ID重存仍可能覆盖，但保存前重读可识别顺序陈旧快照并另建版本，A=328、B=369。",
+      "limits": [
+        "真正并发仍需单一写入者或外部协调，不能把本地重读当成服务端CAS。"
+      ],
+      "evidence": "state.json#workbook_guard"
+    },
+    {
+      "capability_id": "dashboard-analytics",
+      "scenario_id": "dashboard-physical-snapshot-drill",
+      "status": "passed",
+      "conditions": {
+        "scope": "explicit physical JOIN detail snapshot bound to a single-table chart with open-status filter"
+      },
+      "result": "原生JOIN钻取仍400；物理快照钻取成功，CSV含east/100.00并排除closed/50.00。",
+      "limits": [
+        "快照需显式维护，不是原子同步；不证明JOIN原生钻取已支持或刷新后自动保持最新。"
+      ],
+      "evidence": "state.json#dashboard_snapshot + snapshot-east.csv"
+    },
+    {
+      "capability_id": "dashboard-analytics",
+      "scenario_id": "dashboard-relations-drel02",
+      "status": "partial",
+      "conditions": {
+        "scope": "native JOIN drill versus explicitly maintained physical snapshot"
+      },
+      "result": "原生JOIN钻取仍不支持；显式物理快照的钻取和CSV已验证可用。",
+      "limits": [
+        "快照是替代路径，不修复原生JOIN钻取，也不保证自动同步。"
+      ],
+      "evidence": "state.json#dashboard_snapshot"
+    },
+    {
+      "capability_id": "data-share",
+      "scenario_id": "share-selected-scope-lifecycle",
+      "status": "passed",
+      "conditions": {
+        "scope": "selected approved only, add later, remove later; receiver-side reads"
+      },
+      "result": "approved始终可读；hidden始终不存在；later加入后可读、移除后再次不存在。",
+      "limits": [
+        "未选或移除表仍返回500/table does not exist，不是稳定权限响应。"
+      ],
+      "evidence": "state.json#share_lifecycle + calls/share-later-added-00 + calls/share-later-removed"
+    },
+    {
+      "capability_id": "data-share",
+      "scenario_id": "unselected-table-denial-semantics",
+      "status": "partial",
+      "conditions": {
+        "scope": "receiver reads unselected and removed tables after actual selected-scope changes"
+      },
+      "result": "未选和移除表确实不可读，但错误仍是500/table does not exist；加入表后恢复可读。",
+      "limits": [
+        "不能把物化范围生效说成规范403/404权限语义已经改善。"
+      ],
+      "evidence": "state.json#share_lifecycle"
+    }
+  ]
+}

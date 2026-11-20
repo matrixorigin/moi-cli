@@ -1,0 +1,9 @@
+name: Slack GIF Creator
+description: Create Slack-ready animated GIFs.
+routingSummary:
+  summary: Create Slack-ready animated GIFs.
+instruction:
+  body: Use the package-owned GIF tool.
+requirements:
+  toolRefs:
+    - gif-create

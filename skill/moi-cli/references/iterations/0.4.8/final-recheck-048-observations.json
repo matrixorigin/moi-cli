@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-11-15",
+  "environment": "production",
+  "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+  "cli": {
+    "channel": "candidate",
+    "version": "0.1.0-dev.d5c5c3a",
+    "auth": "native"
+  },
+  "scenario_count_added": 0,
+  "results": [
+    {
+      "capability_id": "knowledge-preparation",
+      "scenario_id": "sources-retrieval-citations",
+      "status": "passed",
+      "classification": "short_name_condition_passed_long_name_product_bug_retained",
+      "model_id": 130010,
+      "model_name": "s048r",
+      "source_id": "kb-source-86ba8c984792b47ae371c003",
+      "file_id": "f625b1a6-0c41-4b3e-839f-b2d1a8c073fa",
+      "chunk_id": "kb-segment-4206545d4b71a26305be97a2",
+      "task_id": "art-a68defe7ae4ba630c94ccc7b262fd7879a929a0932f68c34",
+      "result": "同一 Catalog 原文件和表来源均 succeeded，文档 3 段及 ETag 可读。独立新会话返回 53 箱、银杉-053、7 辆车、orders 6 笔和总额 1500；select_final_sources accepted=true，正式 rag_chunk 命中当前 model/source/file/chunk，sql_table 指向真实 orders。",
+      "limits": [
+        "通过条件是短知识库名称 s048r；长名称拼接 operation_id 超过 VARCHAR(128) 的产品缺陷未修复。",
+        "只证明本次小文档、表来源和当前生产配置，不推断任意名称、规模或普通成员权限。"
+      ],
+      "evidence": "evidence/skill-048-knowledge-reuse"
+    },
+    {
+      "capability_id": "data-ingestion",
+      "scenario_id": "composite-key-update",
+      "status": "failed",
+      "classification": "tested_version_writer_primary_key_update_defect",
+      "task_id": "f866ed4e-22fd-49f0-a559-f83810e8766a",
+      "execution_id": "syswfe-66f999ab13305a7efe54c404ef39108ced70ac71c704f365e0c5ee3d7",
+      "result": "2026-11-15 对原失败任务只选择原文件重试，写表仍报 unsupported DML: update primary key on duplicate；重试前后隔离表均为原 2 行且内容不变。",
+      "limits": [
+        "不是缺参数、登录或 Skill 编排问题；当前 dev 源码的修复逻辑尚未在当前生产原场景生效。",
+        "暂存表加显式 SQL 是替代业务路径，不是原自动更新恢复。"
+      ],
+      "evidence": "evidence/skill-048-import-retry/calls/composite-retry-result"
+    },
+    {
+      "capability_id": "data-ingestion",
+      "scenario_id": "single-config-group-replay",
+      "status": "failed",
+      "classification": "tested_version_retry_scope_defect",
+      "task_id": "4c6b60bc-a699-4739-83dd-dde6f4b9f11b",
+      "execution_id": "syswfe-9fb65ba8265a7856bdbc9f0be1374e840b646b3ba473eac0e55cd9ec6",
+      "result": "2026-11-15 再次只选择 bad 文件 517534000258（业务键 300）重试，仍因未选择 good 文件的业务键 200 冲突失败；重试前后隔离表均只有 baseline 100 和 good 200，bad 300 未写入。",
+      "limits": [
+        "选择范围与实际 writer 输入不一致，不是调用者选错文件。",
+        "每文件独立 table-config 是规避方案，不是同配置选择性重试修复。"
+      ],
+      "evidence": "evidence/skill-048-import-retry/calls/group-retry-result"
+    }
+  ]
+}

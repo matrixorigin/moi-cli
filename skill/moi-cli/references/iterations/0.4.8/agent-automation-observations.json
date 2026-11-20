@@ -1,0 +1,53 @@
+{
+  "environment": "production",
+  "auth": "native",
+  "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+  "cli_channel": "candidate",
+  "cli_version": "0.1.0-dev.d5c5c3a",
+  "validated_on": "2026-11-15",
+  "observations": [
+    {
+      "capability_id": "agent-automation",
+      "scenario_id": "automation-revisions-ar-04",
+      "status": "partial",
+      "conditions": {
+        "scope": "v1 cron completed; disabled revision to v2 with */2 cron; bounded 200-second observation"
+      },
+      "result": "v1 run e8a0281a-f599-533e-b3e3-3296a2ffe51b completed with SKILL045_A；v2 next_trigger_at=16:42 but no v2 run within 200 seconds；task archived。",
+      "limits": [
+        "修订配置和next_trigger_at不能代替新版实际执行；原修订路径未修复",
+        "新建替换任务成功是另一条件，不证明所有修订任务均不触发"
+      ],
+      "evidence": "state.json + receipts/revision-confirm.json + receipts/runs-final.json"
+    },
+    {
+      "capability_id": "agent-automation",
+      "scenario_id": "automation-fresh-replacement-after-revision",
+      "status": "passed",
+      "conditions": {
+        "scope": "fresh replacement task with SKILL045_B and */2 cron after revised task did not fire"
+      },
+      "result": "Fresh replacement produced cron run 320b7554-0c0b-50e8-b4d7-fbb7a0e151ef，final_text=SKILL045_B，output_validation=passed；result/events完整并已归档。",
+      "limits": [
+        "仅证明修订未生效时的新建替换路径，不证明原任务修订调度已修复",
+        "迁移或替换真实任务前必须另行确认历史、输入、权限和外部副作用"
+      ],
+      "evidence": "replacement-state.json + receipts/replacement-run-result.json + receipts/replacement-run-events.json"
+    },
+    {
+      "capability_id": "agent-skill-tool",
+      "scenario_id": "plugin-skill-body-read",
+      "status": "failed",
+      "conditions": {
+        "scope": "GitHub plugin release 1.0.2 and skills/github/SKILL.md formal path"
+      },
+      "result": "Release/manifest/path可读，read-plugin-skill仍404，request_id=e0ee0f25-2cb9-4fa5-ad31-f9d31e18bb89；get-skill-file以插件capability ID调用也404，资源元数据导出另被401拒绝。",
+      "limits": [
+        "release元数据不是Skill正文；托管Skill下载命令不能未经核实替代插件正文入口",
+        "只限定GitHub正文读取，不推广成所有插件或MCP不可用"
+      ],
+      "request_id": "e0ee0f25-2cb9-4fa5-ad31-f9d31e18bb89",
+      "evidence": "receipts/plugin-read-skill.json + receipts/plugin-get-skill-file-github.json + receipts/plugin-list-meta-valid.json"
+    }
+  ]
+}

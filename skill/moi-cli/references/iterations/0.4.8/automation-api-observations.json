@@ -1,0 +1,62 @@
+{
+  "environment": "production",
+  "auth": "pat",
+  "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+  "cli_channel": "candidate",
+  "cli_version": "0.1.0-dev.d5c5c3a",
+  "validated_on": "2026-11-15",
+  "observations": [
+    {
+      "capability_id": "agent-automation",
+      "scenario_id": "fixed-api-pat",
+      "status": "passed",
+      "conditions": {
+        "scope": "fixed instruction with production PAT and empty payload"
+      },
+      "result": "固定指令 run 24893446-86df-4cff-9958-fc08b4f819b2 succeeded，final_text=527，trigger_type=api，output_validation=passed，任务已归档。",
+      "limits": [
+        "只证明固定指令 API，不证明动态参数、严格 JSON 输出或与 Astra 为同一账号。"
+      ],
+      "evidence": "fixed-result.json + fixed-final-runs.json"
+    },
+    {
+      "capability_id": "agent-automation",
+      "scenario_id": "api-missing-required-input-rejection",
+      "status": "passed",
+      "conditions": {
+        "scope": "input_schema requires a and b but request omits b"
+      },
+      "result": "缺少 b 在提交前返回400和 b is required，request_id=16502305-c8b8-4426-b9d1-152b0a936e2f，没有业务 run。",
+      "limits": [
+        "这是预期拒绝，不代表合法 a/b 可以通过；合法输入的 envelope 校验失败另记。"
+      ],
+      "evidence": "calls/codex-skill047-schema-r3-invalid-missing-b-r3/response.json"
+    },
+    {
+      "capability_id": "agent-automation",
+      "scenario_id": "dynamic-api-schema-payload",
+      "status": "failed",
+      "conditions": {
+        "scope": "valid a=19 b=23 with required input_schema"
+      },
+      "result": "合法 a/b 进入 run 后仍 WORKFLOW_SUBMIT_FAILED/INPUT_VALIDATION_FAILED；automation 外层字段被业务 schema 一并校验。",
+      "limits": [
+        "不是缺 PAT 或缺少 a/b；不能把固定指令成功当成 schema 合法输入通过。"
+      ],
+      "evidence": "schema-result.json"
+    },
+    {
+      "capability_id": "agent-automation",
+      "scenario_id": "dynamic-api-structured-output",
+      "status": "failed",
+      "conditions": {
+        "scope": "valid a=19 b=23 without input_schema and strict answer object output"
+      },
+      "result": "模型称未收到 a/b，structured output 为 null，OUTPUT_CONTRACT_VALIDATION_FAILED，run b879c9c7-469d-48cb-93b9-fbad0266256a。",
+      "limits": [
+        "严格 JSON 输出未通过，空 output_contract 或固定指令 passed 不能替代。"
+      ],
+      "evidence": "structured-result.json"
+    }
+  ]
+}

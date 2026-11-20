@@ -1,0 +1,38 @@
+{
+  "environment": "production",
+  "auth": "native",
+  "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+  "cli_channel": "candidate",
+  "cli_version": "0.1.0-dev.d5c5c3a",
+  "validated_on": "2026-11-15",
+  "observations": [
+    {
+      "capability_id": "knowledge-preparation",
+      "scenario_id": "knowledge-create-spec-with-default-embedding",
+      "status": "passed",
+      "conditions": {
+        "scope": "create-with-spec with bge-m3 and embedding_dimension=1024 at creation"
+      },
+      "result": "标准库 110007 创建即初始化 bge-m3/1024 和 kb045std.kb_110007_text_index；get/export 一致。",
+      "limits": [
+        "空标准库未追加来源，本场景只证明创建时 embedding 初始化，不证明文档准备或问答。",
+        "未验 preserve_embedding、私有 backend 或其它模型维度。"
+      ],
+      "evidence": "calls/create-standard + calls/get-standard + calls/export-standard"
+    },
+    {
+      "capability_id": "knowledge-preparation",
+      "scenario_id": "knowledge-create-spec-drawing-embedding-and-source",
+      "status": "passed",
+      "conditions": {
+        "scope": "drawing create-with-spec with full text/image embedding then local Markdown prepare"
+      },
+      "result": "drawing 110008 同时初始化 bge-m3/1024 与 qwen3-vl-embedding/2560；追加本地文档后来源 succeeded，4 分段及 ETag 可读。",
+      "limits": [
+        "未做问答、正式引用、图片检索或视觉核图。",
+        "未验 preserve_embedding、并发创建、私有 backend 或其它图片文档。"
+      ],
+      "evidence": "calls/create-drawing + calls/append-drawing + calls/reconcile-drawing + calls/document-drawing"
+    }
+  ]
+}

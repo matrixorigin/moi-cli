@@ -1,0 +1,824 @@
+{
+  "schema_version": 1,
+  "source_iteration": "0.4.11",
+  "entries": [
+    {
+      "feature_id": "AR06",
+      "feature_name": "成果批量下载",
+      "scope": "full_cli_missing",
+      "status": "cli_missing",
+      "current_commands": [
+        "catalog --help",
+        "agent --help",
+        "catalog download-workspace-file --help"
+      ],
+      "current_evidence": "仅发现batch-get-data-assets和batch-resolve-file-artifacts，未提供选择多个成果并打包ZIP的命令；download-workspace-file只接受单个file-id。未用本地ZIP冒充产品能力。",
+      "missing_contract": "缺正式批量成果ZIP下载入口和输入合同。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "calls/help/catalog-all.txt",
+        "calls/help/agent-all.txt",
+        "calls/help/catalog-download-workspace-file.txt"
+      ]
+    },
+    {
+      "feature_id": "CN06",
+      "feature_name": "模型格式适配",
+      "scope": "full_cli_missing",
+      "status": "cli_missing",
+      "current_commands": [
+        "provider-backend create",
+        "provider-backend update"
+      ],
+      "current_evidence": "当前正式参数只有地址、模型、reasoning protocol、MIME类型和超时等，没有per-channel请求/响应JSON模板或JSONPath映射合同。",
+      "missing_contract": "需要正式的adapter override输入；不能用reasoning-control-protocol代替格式适配。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "references/commands/provider-backend.md"
+      ]
+    },
+    {
+      "feature_id": "CP05",
+      "feature_name": "站点 / Region 切换",
+      "scope": "full_cli_missing",
+      "status": "cli_missing",
+      "current_commands": [
+        "compute specs",
+        "compute create-spec"
+      ],
+      "current_evidence": "当前只有workspace-id及规格字段，没有站点/Region切换输入，无法按站点查看不同价格或实例。",
+      "missing_contract": "需要正式站点/Region参数及相应目录合同；不能猜测region字段。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "references/commands/compute.md",
+        "calls/compute-specs/response.json"
+      ]
+    },
+    {
+      "feature_id": "CR07",
+      "feature_name": "计算资源时长统计",
+      "scope": "full_cli_missing",
+      "status": "cli_missing",
+      "current_commands": [
+        "compute specs",
+        "compute get --id b93715e4-9f22-5b94-bf32-de57a26829a8",
+        "account current-credit --help",
+        "account current-credit"
+      ],
+      "current_evidence": "规格提供credit_per_hour，资源详情只有时间戳和配置，没有在线时长或实付金额。current-credit没有资源ID输入，本次还因native会话失效返回401。没有形成单资源账单核验。",
+      "missing_contract": "需要正式的单资源在线时长与实付账单入口；401属于独立认证限制，不是判断该入口存在或不存在的依据。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "calls/compute-specs/response.json",
+        "calls/compute-get-deleted/response.json",
+        "calls/account-credit-help/response.json",
+        "calls/account-current-credit/response.json"
+      ]
+    },
+    {
+      "feature_id": "MM03",
+      "feature_name": "新建模型",
+      "scope": "full_cli_missing",
+      "status": "cli_missing",
+      "current_commands": [
+        "model list",
+        "model create-workspace-llm-backend",
+        "model update-workspace-llm-backend"
+      ],
+      "current_evidence": "现有命令管理的是workspace LLM backend/endpoint，不是后台模型SKU的新建、编辑、删除或启停；没有对应正式管理合同。",
+      "missing_contract": "需要后台模型SKU生命周期接口，不能把workspace backend配置当成模型SKU管理。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "references/commands/model.md",
+        "references/commands/provider-backend.md"
+      ]
+    },
+    {
+      "feature_id": "MM04",
+      "feature_name": "编辑 / 删除模型",
+      "scope": "full_cli_missing",
+      "status": "cli_missing",
+      "current_commands": [
+        "model list",
+        "model create-workspace-llm-backend",
+        "model update-workspace-llm-backend"
+      ],
+      "current_evidence": "现有命令管理的是workspace LLM backend/endpoint，不是后台模型SKU的新建、编辑、删除或启停；没有对应正式管理合同。",
+      "missing_contract": "需要后台模型SKU生命周期接口，不能把workspace backend配置当成模型SKU管理。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "references/commands/model.md",
+        "references/commands/provider-backend.md"
+      ]
+    },
+    {
+      "feature_id": "MM05",
+      "feature_name": "启用 / 禁用模型",
+      "scope": "full_cli_missing",
+      "status": "cli_missing",
+      "current_commands": [
+        "model list",
+        "model create-workspace-llm-backend",
+        "model update-workspace-llm-backend"
+      ],
+      "current_evidence": "现有命令管理的是workspace LLM backend/endpoint，不是后台模型SKU的新建、编辑、删除或启停；没有对应正式管理合同。",
+      "missing_contract": "需要后台模型SKU生命周期接口，不能把workspace backend配置当成模型SKU管理。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "references/commands/model.md",
+        "references/commands/provider-backend.md"
+      ]
+    },
+    {
+      "feature_id": "RP16",
+      "feature_name": "告警权限",
+      "scope": "full_cli_missing",
+      "status": "cli_missing",
+      "current_commands": [
+        "iam permission-schema",
+        "moi-cli skill search --query alert permission"
+      ],
+      "current_evidence": "当前148个action未提供alerting资源/action；搜索alert permission没有匹配管理合同。",
+      "missing_contract": "告警权限需要先冻结资源/action和公开合同，不能把workflow/query_history等其它授权冒充告警权限。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "calls/permission-schema/response.json",
+        "calls/skill-search-alert-permission/response.json"
+      ]
+    },
+    {
+      "feature_id": "RP27",
+      "feature_name": "角色标签与筛选",
+      "scope": "full_cli_missing",
+      "status": "cli_missing",
+      "current_commands": [
+        "resource-tag list --type role",
+        "moi-cli skill search --query role tag labels"
+      ],
+      "current_evidence": "resource-tag --type role返回400 RESOURCE_TAG_INVALID_ARGUMENT；搜索role tag labels没有匹配。",
+      "missing_contract": "需要角色标签类型、赋值、筛选和分组的正式合同；当前只确认workflow标签类型存在。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "calls/resource-tags-role/response.json",
+        "calls/skill-search-role-tags/response.json",
+        "calls/resource-tags-workflow/response.json"
+      ]
+    },
+    {
+      "feature_id": "UM07",
+      "feature_name": "API Key",
+      "scope": "full_cli_missing",
+      "status": "cli_missing",
+      "current_commands": [
+        "moi-cli skill search --query personal access token create revoke api key"
+      ],
+      "current_evidence": "搜索返回matches=[]；当前只支持使用已配置PAT，未找到用户API Key生命周期管理合同。",
+      "missing_contract": "需要公开API与CLI的用户API Key创建、查看、撤销接口及权限边界，当前不能猜参数或复用PAT代替。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "calls/skill-search-api-key/response.json",
+        "references/commands/account.md"
+      ]
+    },
+    {
+      "feature_id": "AK01",
+      "feature_name": "知识库列表、发现",
+      "scope": "partial_cli_gap",
+      "status": "partial",
+      "current_commands": [
+        "semantic-model list/get/list-sources/list-referencing-agents"
+      ],
+      "current_evidence": "列表和本地名称筛选可用，标签目录可读；知识库整体标签及全部处理状态仍缺统一合同。",
+      "missing_contract": "整体标签筛选、启用状态和完整处理状态组合。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "calls/models-page/response.json",
+        "calls/kb-get-corrected/response.json",
+        "calls/list-two-table-sources/response.json",
+        "calls/refs-after-load/response.json",
+        "../../../cli-308-cli56-followup-20261117/calls/ak01-list-tags/response.json"
+      ]
+    },
+    {
+      "feature_id": "AK02",
+      "feature_name": "知识库创建与基础信息管理",
+      "scope": "partial_cli_gap",
+      "status": "partial",
+      "current_commands": [
+        "semantic-model create-empty/append-sources/list-sources/update/get/delete",
+        "catalog database-info/volume-info"
+      ],
+      "current_evidence": "创建和来源管理可复用既有证据；整体标签及文件/表数量和处理状态组合仍未形成完整闭环。",
+      "missing_contract": "知识库整体标签维护及完整状态组合。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "calls/kb-create/response.json",
+        "calls/kb-get-corrected/response.json",
+        "calls/list-two-table-sources/response.json",
+        "calls/kb-after-delete/response.json",
+        "calls/kb-data-domain-after-delete/response.json",
+        "calls/raw-volume-after-kb-delete/response.json",
+        "calls/processed-volume-after-kb-delete/response.json",
+        "../../../cli-308-cli56-followup-20261117/calls/kb01-get-130010/response.json",
+        "../../../cli-308-cli56-followup-20261117/calls/kb01-sources-130010/response.json"
+      ]
+    },
+    {
+      "feature_id": "AK03",
+      "feature_name": "知识库文件与表管理",
+      "scope": "partial_cli_gap",
+      "status": "partial",
+      "current_commands": [
+        "semantic-model append-sources/list-sources",
+        "sql run --query <使用全限定表名的只读查询>",
+        "历史 semantic-model get-source-document/update-source-governance/agent a2a-stream"
+      ],
+      "current_evidence": "文件管理多数子项已有证据，批量删除仍无正式入口。",
+      "missing_contract": "批量删除及失败重试等完整管理链。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "calls/list-two-table-sources/response.json",
+        "calls/table-source-sql-corrected/response.json",
+        "../../../skill-048-knowledge-reuse/calls/reuse-original-document/response.json",
+        "../../../cli-dev-full-regression-20261114/workflow-knowledge/production/governance-result.json",
+        "../../../cli-dev-full-regression-20261114/workflow-knowledge/production/replace-source-result.json",
+        "../../../cli-dev-full-regression-20261114/workflow-knowledge/production/sources-qa-fallback-result.json",
+        "../../../cli-308-cli56-followup-20261117/calls/kb01-sources-130010/response.json"
+      ]
+    },
+    {
+      "feature_id": "AK05",
+      "feature_name": "文本分段管理",
+      "scope": "partial_cli_gap",
+      "status": "partial",
+      "current_commands": [
+        "历史 semantic-model get-source-document/update-segment/update-segment-enabled",
+        "历史 conversation create-ui-session/agent a2a-stream/get-task"
+      ],
+      "current_evidence": "分段读取、编辑、启停和ETag已有证据；搜索、召回优先排序和召回次数没有正式输入。",
+      "missing_contract": "分段搜索、两种排序及召回次数的真实业务结果。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "../../../cli-depth-boundaries-20261101/knowledge-changes/scenarios.json",
+        "../../../skill-048-knowledge-reuse/calls/reuse-original-document/response.json",
+        "../../../cli-308-cli56-followup-20261117/calls/ak05-document-130010/response.json"
+      ]
+    },
+    {
+      "feature_id": "CA01",
+      "feature_name": "对象树",
+      "scope": "partial_cli_gap",
+      "status": "partial",
+      "current_commands": [
+        "catalog tree",
+        "workflow custom-operators",
+        "semantic-model get"
+      ],
+      "current_evidence": "catalog tree 返回catalog/database/table/volume；模型与算子可分别读取，但没有统一出现在该树中。",
+      "missing_contract": "catalog tree 未统一展示模型和算子类型。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "calls/catalog-tree/response.json",
+        "calls/custom-operators-before/response.json",
+        "calls/model-detail/response.json"
+      ]
+    },
+    {
+      "feature_id": "CA04",
+      "feature_name": "库详情",
+      "scope": "partial_cli_gap",
+      "status": "partial",
+      "current_commands": [
+        "catalog database-children",
+        "workflow custom-operators",
+        "semantic-model get"
+      ],
+      "current_evidence": "database-children返回表和Volume；模型与算子需要分别入口，未在同一库详情中统一列出。",
+      "missing_contract": "库详情中的模型与算子统一枚举未覆盖。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "calls/database-children/response.json",
+        "calls/custom-operators-before/response.json",
+        "calls/model-detail/response.json"
+      ]
+    },
+    {
+      "feature_id": "CH13",
+      "feature_name": "模型思考等级",
+      "scope": "partial_cli_gap",
+      "status": "partial",
+      "current_commands": [
+        "model workspace-chat-completion",
+        "agent a2a-stream"
+      ],
+      "current_evidence": "直接模型调用可按等级工作，但普通A2A显式等级存在内部错误；默认未指定最稳定，不能宣称所有入口max均生效。",
+      "missing_contract": "不同模型、服务slot和A2A入口的等级支持不一致。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "references/domains/model.md"
+      ]
+    },
+    {
+      "feature_id": "CO02",
+      "feature_name": "创建连接器",
+      "scope": "partial_cli_gap",
+      "status": "partial",
+      "current_commands": [
+        "connector create --config-file",
+        "connector validate --config-file"
+      ],
+      "current_evidence": "创建ID 517534000619，active、source_type=5、usage=[1,2]；validate返回valid=false，符合无效端点预期。",
+      "missing_contract": "当前validate没有saved connector-id输入，只证明保存前配置校验；保存后连接测试、真实外部连通和页面取消未验。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "calls/connector-create-isolated/response.json",
+        "calls/connector-validate-updated/response.json"
+      ]
+    },
+    {
+      "feature_id": "CP01",
+      "feature_name": "规格目录列表",
+      "scope": "partial_cli_gap",
+      "status": "partial",
+      "current_commands": [
+        "compute specs"
+      ],
+      "current_evidence": "目录返回15项，覆盖query/task/gpu等类型，包含CPU、内存、credit_per_hour和启用状态；CC0为1核2GiB、6 credits/小时。",
+      "missing_contract": "站点/Region价格切换、规格实例数和管理后台完整目录未验证。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "calls/compute-specs/response.json",
+        "compute-summary.json"
+      ]
+    },
+    {
+      "feature_id": "DD09",
+      "feature_name": "看板告警记录",
+      "scope": "partial_cli_gap",
+      "status": "partial",
+      "current_commands": [
+        "dashboard get"
+      ],
+      "current_evidence": "统一告警记录可读，但没有正式逐条/全部已读入口。",
+      "missing_contract": "未读角标、已读动作和用户×记录存储；统一记录页需UI。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "calls/get-dashboard-with-alerts/response.json",
+        "../../../cli-308-cli56-followup-20261117/calls/dd08-dashboard-all-alerts/response.json"
+      ]
+    },
+    {
+      "feature_id": "DL02",
+      "feature_name": "载入任务详情与编辑",
+      "scope": "partial_cli_gap",
+      "status": "partial",
+      "current_commands": [
+        "connector pause-task",
+        "connector update-task",
+        "connector get-task",
+        "connector resume-task"
+      ],
+      "current_evidence": "周期任务创建、名称/调度/过滤修改成功；回填、预处理和实时水位线仍无正式输入。",
+      "missing_contract": "回填、预处理、实时水位线及独立实时任务编辑入口。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "calls/paused-status/response.json",
+        "calls/paused-rename/response.json",
+        "calls/paused-name-verified/response.json",
+        "calls/resumed-final/response.json",
+        "calls/nonstruct-periodic-update/response.json",
+        "../../../cli-308-cli56-followup-20261117/calls/dl02-create-periodic/response.json",
+        "../../../cli-308-cli56-followup-20261117/calls/dl02-get-updated/response.json"
+      ]
+    },
+    {
+      "feature_id": "DL04",
+      "feature_name": "载入任务暂停 / 继续",
+      "scope": "partial_cli_gap",
+      "status": "partial",
+      "current_commands": [
+        "connector pause-task",
+        "connector get-task",
+        "connector resume-task",
+        "connector task-runs",
+        "sql run"
+      ],
+      "current_evidence": "pause/resume已在周期任务上验证；CLI命令盘点没有独立stop入口。",
+      "missing_contract": "独立停止运行中任务的stop命令和终态。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "calls/pause-immediate/response.json",
+        "calls/paused-status/response.json",
+        "calls/paused-resume/response.json",
+        "calls/resumed-final/response.json",
+        "calls/resumed-runs/response.json",
+        "calls/verify-sql/response.json",
+        "calls/structured-pause/response.json",
+        "../../../cli-308-cli56-followup-20261117/calls/dl04-connector-command-inventory/response.json",
+        "../../../cli-308-cli56-followup-20261117/calls/dl02-pause-periodic/response.json"
+      ]
+    },
+    {
+      "feature_id": "DS06",
+      "feature_name": "权限控制",
+      "scope": "partial_cli_gap",
+      "status": "partial",
+      "current_commands": [
+        "data-share publishes",
+        "data-share create-publish --help"
+      ],
+      "current_evidence": "只读发布和文件下载能力存在；create-publish正式参数只有名称、源库、表范围和目标workspace，没有独立只读/可下载切换输入。",
+      "missing_contract": "独立只读/可下载权限切换未提供正式CLI输入，不能用其它字段猜测。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "calls/share-publishes/response.json",
+        "../../../cli-dev-full-regression-20261114/data-assets/data-share-prod/assertions.json",
+        "references/commands/data-share.md"
+      ]
+    },
+    {
+      "feature_id": "LG01",
+      "feature_name": "审计列表",
+      "scope": "partial_cli_gap",
+      "status": "partial",
+      "current_commands": [
+        "workspace-member audit-log-overview",
+        "workspace-member audit-logs"
+      ],
+      "current_evidence": "本轮时间倒序列表、page/page-size及method+status-code+result+时间范围组合筛选均返回正确记录。",
+      "missing_contract": "操作人、模块、操作类型、来源、对象关键词和高敏开关未由当前flags覆盖；完整页面筛选仍需UI或补合同。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "calls/audit-logs/response.json",
+        "../../../cli-308-partial-skill-20261117/calls/lg01-audit-page-filter/response.json",
+        "../../../cli-308-partial-skill-20261117/calls/lg01-audit-combined-filter/response.json"
+      ]
+    },
+    {
+      "feature_id": "MM07",
+      "feature_name": "模型状态指示",
+      "scope": "partial_cli_gap",
+      "status": "partial",
+      "current_commands": [
+        "model list",
+        "provider-backend router --kind llm"
+      ],
+      "current_evidence": "路由只有策略、健康检查间隔和重试次数；模型目录不含正常/不稳定/异常/未知四态状态。",
+      "missing_contract": "四态模型状态的实时指示和变化未验证。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "calls/model-list/response.json",
+        "calls/provider-router/response.json",
+        "model-catalog-summary.json"
+      ]
+    },
+    {
+      "feature_id": "MO03",
+      "feature_name": "二级筛选器",
+      "scope": "partial_cli_gap",
+      "status": "partial",
+      "current_commands": [
+        "model list"
+      ],
+      "current_evidence": "model_type可分组，名称可区分DeepSeek/GLM/Kimi/Qwen系列。",
+      "missing_contract": "没有独立的系列字段和完整十类×系列联动合同，只有chat一类。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "model-catalog-summary.json"
+      ]
+    },
+    {
+      "feature_id": "MO04",
+      "feature_name": "次级筛选",
+      "scope": "partial_cli_gap",
+      "status": "partial",
+      "current_commands": [
+        "model list"
+      ],
+      "current_evidence": "可按backend_name筛选Genesis/system-llm；目录不提供上下文长度和四态状态字段。",
+      "missing_contract": "厂商全量枚举、上下文长度和四种状态筛选未覆盖。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "calls/model-list/response.json",
+        "model-catalog-summary.json"
+      ]
+    },
+    {
+      "feature_id": "MO05",
+      "feature_name": "模型详情抽屉",
+      "scope": "partial_cli_gap",
+      "status": "partial",
+      "current_commands": [
+        "model list"
+      ],
+      "current_evidence": "DeepSeek条目含model、backend_id/name、model_type、source、system_default和reasoning_efforts。",
+      "missing_contract": "简介、参数、能力标签、定价和API示例未完整提供，不能宣称完整详情抽屉。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "model-catalog-summary.json"
+      ]
+    },
+    {
+      "feature_id": "MO09",
+      "feature_name": "状态实时显示",
+      "scope": "partial_cli_gap",
+      "status": "partial",
+      "current_commands": [
+        "model list",
+        "provider-backend router --kind llm"
+      ],
+      "current_evidence": "provider路由返回ROUND_ROBIN、30秒健康检查、最多2次重试；模型目录本身不含四态状态。",
+      "missing_contract": "正常/不稳定/异常/未知四态的实时显示和变化过程未验证。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "calls/model-list/response.json",
+        "calls/provider-router/response.json",
+        "model-catalog-summary.json"
+      ]
+    },
+    {
+      "feature_id": "OT10",
+      "feature_name": "CLI",
+      "scope": "partial_cli_gap",
+      "status": "partial",
+      "current_commands": [
+        "moi-cli-dev 多领域正式命令"
+      ],
+      "current_evidence": "CLI已覆盖工作区、Catalog、SQL、导入导出、Workflow、Knowledge、IAM和Agent多条链路；P12仍有后台和模型管理缺口。",
+      "missing_contract": "不能据此宣称与全部开放API一一对齐，后台Region、渠道和模型SKU管理仍缺合同或条件。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "../../task-packs.json",
+        "../../../final-review-20261116/moi-cli-Skill功能点与进度对齐.md"
+      ]
+    },
+    {
+      "feature_id": "SK02",
+      "feature_name": "技能详情与版本管理",
+      "scope": "partial_cli_gap",
+      "status": "partial",
+      "current_commands": [
+        "agent update-skill --help",
+        "agent import-skill-package --help",
+        "agent resource-put --help"
+      ],
+      "current_evidence": "附件下载和独立新包切换已有证据；update-skill不存在，import-skill-package不接受目标ID，resource-put只有开放JSON，未形成同ID附件更新合同。",
+      "missing_contract": "同ID附件原位更新及完整历史快照回退仍缺公开合同。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "calls/update-skill-help/response.json",
+        "calls/import-skill-help/response.json",
+        "calls/resource-put-help/response.json",
+        "../../../skill-048-agent/offline/agent-help.txt",
+        "../../../skill-048-agent/offline/resource-put-help.txt"
+      ]
+    },
+    {
+      "feature_id": "SK04",
+      "feature_name": "技能管理与启停",
+      "scope": "partial_cli_gap",
+      "status": "partial",
+      "current_commands": [
+        "agent update-skill --help",
+        "agent resource-put --help"
+      ],
+      "current_evidence": "元数据和绑定可组织；同ID附件更新没有正式入口，不能猜resource-put字段。",
+      "missing_contract": "统一启停、标签编辑和同ID附件更新未覆盖。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "calls/update-skill-help/response.json",
+        "calls/resource-put-help/response.json",
+        "../../../skill-048-agent/offline/resource-put-help.txt"
+      ]
+    },
+    {
+      "feature_id": "WF24",
+      "feature_name": "视频解析节点",
+      "scope": "partial_cli_gap",
+      "status": "partial",
+      "current_commands": [
+        "workflow deploy/run/get-run-result (moi:parser.convert.video.rich v1)"
+      ],
+      "current_evidence": "视频音轨自动识别英语并完成转写；正式输入只有语言、去噪和切片，结果只有音频文档。",
+      "missing_contract": "关键帧、独立字幕和场景检测没有正式配置或输出；长视频另需样本。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "inputs/video_fixture.mp4",
+        "calls/result-video/response.json",
+        "../../../cli-308-cli56-followup-20261117/calls/wf24-get-video-node/response.json",
+        "../../../cli-308-cli56-followup-20261117/calls/wf42-workitem-catalog/response.json"
+      ]
+    },
+    {
+      "feature_id": "WF27",
+      "feature_name": "清洗节点",
+      "scope": "partial_cli_gap",
+      "status": "partial",
+      "current_commands": [
+        "workflow deploy/run/get-run-result (moi:parser.clean.text v1)"
+      ],
+      "current_evidence": "n-gram和特殊字符过滤均验证，全部内容被过滤时明确失败；正常文本在阈值下保留。schema没有翻译输入。",
+      "missing_contract": "通用语言翻译无正式入口；节点折叠标题结构及全过滤为空时的错误语义需产品确认。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "dsl/clean.yaml",
+        "calls/result-clean/response.json",
+        "../../../cli-308-cli56-followup-20261117/calls/wf27-result-clean-filters/response.json",
+        "../../../cli-308-cli56-followup-20261117/calls/wf27-result-special-filter/response.json",
+        "../../../cli-308-cli56-followup-20261117/calls/wf27-result-retained-text/response.json"
+      ]
+    },
+    {
+      "feature_id": "WF34",
+      "feature_name": "工作流分支",
+      "scope": "partial_cli_gap",
+      "status": "partial",
+      "current_commands": [
+        "workflow create-version",
+        "workflow create-run-node-rerun",
+        "workflow list-run-rerun-branches"
+      ],
+      "current_evidence": "版本、候选和节点恢复分支已有证据；当前只有分支列表/取消，没有完整切换、删除和AI效果对比入口。",
+      "missing_contract": "实例级AI效果对比及分支切换、删除。",
+      "formal_next_action": "先补正式 CLI/Product API 输入输出合同并复核 help/schema；合同出现前保持缺口，不执行猜测性写入。",
+      "forbidden_substitutes": [
+        "开放 object/JSON 猜字段",
+        "raw HTTP、core-cli 或数据库直连绕过",
+        "用相邻命令或其他场景的成功冒充本功能"
+      ],
+      "evidence": [
+        "references/capability-cards.json"
+      ]
+    }
+  ]
+}

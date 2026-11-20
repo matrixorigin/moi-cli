@@ -1,0 +1,220 @@
+name: Build Astra Client Release Candidates
+
+permissions:
+  contents: read
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        description: Release version without the leading v
+        required: true
+        type: string
+      source_sha:
+        description: Immutable source commit selected by the release controller
+        required: true
+        type: string
+
+env:
+  RELEASE_VERSION: ${{ inputs.version }}
+  RELEASE_SOURCE_SHA: ${{ inputs.source_sha }}
+
+jobs:
+  build:
+    name: Build ${{ matrix.target }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-musl
+            suffix: linux-amd64
+            features: astra-cli/release-vendored-openssl
+          - os: ubuntu-24.04-arm
+            target: aarch64-unknown-linux-musl
+            suffix: linux-arm64
+            features: astra-cli/release-vendored-openssl
+          - os: macos-15-intel
+            target: x86_64-apple-darwin
+            suffix: darwin-amd64
+            features: ""
+          - os: macos-15
+            target: aarch64-apple-darwin
+            suffix: darwin-arm64
+            features: ""
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+          ref: ${{ env.RELEASE_SOURCE_SHA }}
+
+      - name: Cache Cargo registry
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ~/.cargo/registry/cache
+            ~/.cargo/registry/index
+            ~/.cargo/git/db
+          key: release-cargo-${{ runner.os }}-${{ matrix.target }}-${{ hashFiles('Cargo.lock') }}
+          restore-keys: |
+            release-cargo-${{ runner.os }}-${{ matrix.target }}-
+
+      - name: Install pinned Rust target
+        shell: bash
+        run: |
+          set -euo pipefail
+          rustc --version
+          rustup target add "${{ matrix.target }}"
+
+      - name: Install musl build dependencies
+        if: ${{ contains(matrix.target, 'unknown-linux-musl') }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Like mold in rust-setup, musl-tools comes from Ubuntu. Unrelated
+          # runner repositories (e.g. Chrome) must not block release builds.
+          ubuntu_sources=/etc/apt/sources.list.d/ubuntu.sources
+          if [[ ! -s "${ubuntu_sources}" ]]; then
+            ubuntu_sources=/etc/apt/sources.list
+          fi
+          test -s "${ubuntu_sources}"
+          apt_options=(
+            -o "Dir::Etc::sourcelist=${ubuntu_sources}"
+            -o "Dir::Etc::sourceparts=-"
+            -o "APT::Get::List-Cleanup=0"
+            -o "APT::Update::Error-Mode=any"
+          )
+          sudo apt-get "${apt_options[@]}" update
+          sudo apt-get "${apt_options[@]}" install -y --no-install-recommends musl-tools
+
+      - name: Build client candidates
+        shell: bash
+        env:
+          RELEASE_FEATURES: ${{ matrix.features }}
+          CARGO_TARGET_X86_64_UNKNOWN_LINUX_MUSL_LINKER: musl-gcc
+          CARGO_TARGET_AARCH64_UNKNOWN_LINUX_MUSL_LINKER: musl-gcc
+        run: |
+          set -euo pipefail
+          set --
+          if [ -n "${RELEASE_FEATURES}" ]; then
+            set -- --features "${RELEASE_FEATURES}"
+          fi
+          cargo build --release --locked --no-default-features "$@" \
+            --manifest-path Cargo.toml --target "${{ matrix.target }}" \
+            -p astra-cli --bin astra \
+            -p astra-edge --bin astra-edge
+
+      - name: Probe Edge TLS from the joint build
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/ci/probe_edge_tls.py "target/${{ matrix.target }}/release/astra-edge"
+
+      - name: Execute client candidates
+        shell: bash
+        run: |
+          set -euo pipefail
+          for binary in astra astra-edge; do
+            candidate="target/${{ matrix.target }}/release/${binary}"
+            reported_version="$("${candidate}" --version)"
+            expected_version="${binary} ${RELEASE_VERSION}"
+            if [ "${reported_version}" != "${expected_version}" ]; then
+              echo "${binary} reports '${reported_version}', expected '${expected_version}'" >&2
+              exit 1
+            fi
+            "${candidate}" --help >/dev/null
+          done
+
+      - name: Verify Darwin session execution lease contract
+        if: ${{ contains(matrix.target, 'apple-darwin') }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          cargo test --release --locked --no-default-features \
+            --manifest-path Cargo.toml --target "${{ matrix.target }}" \
+            -p astra-services --lib macos_session_execution_lease
+          cargo test --release --locked --no-default-features \
+            --manifest-path Cargo.toml --target "${{ matrix.target }}" \
+            -p astra-cli --lib session_execution_lease::tests
+
+      - name: Package client archive
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          checksum_file() {
+            if command -v sha256sum >/dev/null 2>&1; then
+              sha256sum "$1"
+            else
+              shasum -a 256 "$1"
+            fi
+          }
+
+          mkdir -p dist
+          package_dir="${RUNNER_TEMP}/astra-package"
+          mkdir -p "${package_dir}"
+          for binary in astra astra-edge; do
+            install -m 0755 \
+              "target/${{ matrix.target }}/release/${binary}" \
+              "${package_dir}/${binary}"
+          done
+          install -m 0644 LICENSE "${package_dir}/LICENSE"
+          archive="astra-v${RELEASE_VERSION}-${{ matrix.suffix }}.tar.gz"
+          source_date_epoch="$(git show -s --format=%ct "${RELEASE_SOURCE_SHA}")"
+          python3 scripts/create_reproducible_release_archive.py \
+            "${package_dir}" "dist/${archive}" "${source_date_epoch}"
+          (cd dist && checksum_file "${archive}" > "${archive}.sha256")
+
+      - name: Upload client candidate
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: client-${{ matrix.suffix }}
+          path: dist/
+          if-no-files-found: error
+          retention-days: 3
+
+  verify:
+    name: Verify Complete Client Set
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+          ref: ${{ env.RELEASE_SOURCE_SHA }}
+
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          pattern: client-*
+          path: dist
+          merge-multiple: true
+
+      - name: Verify archives and create aggregate checksums
+        shell: bash
+        run: scripts/verify-release-artifacts.sh "${RELEASE_VERSION}" dist
+
+      - name: Write client candidate summary
+        shell: bash
+        run: |
+          {
+            echo "## Verified Astra client candidates"
+            echo
+            echo "Source: \`${RELEASE_SOURCE_SHA}\`"
+            echo
+            echo '```text'
+            cat dist/checksums.txt
+            echo '```'
+          } >> "${GITHUB_STEP_SUMMARY}"
+
+      - name: Upload verified client release set
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: release-client-assets
+          path: dist/
+          if-no-files-found: error
+          retention-days: 30

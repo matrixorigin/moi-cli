@@ -1,0 +1,486 @@
+{
+  "dashboard create-chart": {
+    "json.chart_config": {
+      "scope": "frontend_config_shape_only",
+      "notes": "Generated from the dashboard renderer config type and production serializer. Encode this object as a JSON string in chart_config inside --json. Select mappings from SQL preview column names. by_chart_type lists serialized fields for each chart_type; this describes structure, not business validation.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "string"
+          },
+          "y": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "barY": {
+            "type": "string"
+          },
+          "lineY": {
+            "type": "string"
+          },
+          "series": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "aggregation": {
+            "type": "string",
+            "enum": [
+              "SUM",
+              "COUNT",
+              "AVG",
+              "MAX",
+              "MIN"
+            ]
+          }
+        }
+      },
+      "by_chart_type": {
+        "metric": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            }
+          }
+        },
+        "table": {
+          "type": "object",
+          "properties": {
+            "fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "line": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "string"
+            },
+            "y": {
+              "type": "string"
+            },
+            "aggregation": {
+              "type": "string",
+              "enum": [
+                "SUM",
+                "COUNT",
+                "AVG",
+                "MAX",
+                "MIN"
+              ]
+            }
+          }
+        },
+        "bar": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "string"
+            },
+            "y": {
+              "type": "string"
+            },
+            "aggregation": {
+              "type": "string",
+              "enum": [
+                "SUM",
+                "COUNT",
+                "AVG",
+                "MAX",
+                "MIN"
+              ]
+            }
+          }
+        },
+        "pie": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "string"
+            },
+            "y": {
+              "type": "string"
+            },
+            "aggregation": {
+              "type": "string",
+              "enum": [
+                "SUM",
+                "COUNT",
+                "AVG",
+                "MAX",
+                "MIN"
+              ]
+            }
+          }
+        },
+        "area": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "string"
+            },
+            "y": {
+              "type": "string"
+            },
+            "aggregation": {
+              "type": "string",
+              "enum": [
+                "SUM",
+                "COUNT",
+                "AVG",
+                "MAX",
+                "MIN"
+              ]
+            }
+          }
+        },
+        "combo": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "string"
+            },
+            "barY": {
+              "type": "string"
+            },
+            "lineY": {
+              "type": "string"
+            },
+            "aggregation": {
+              "type": "string",
+              "enum": [
+                "SUM",
+                "COUNT",
+                "AVG",
+                "MAX",
+                "MIN"
+              ]
+            }
+          }
+        },
+        "stacked_bar": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "string"
+            },
+            "y": {
+              "type": "string"
+            },
+            "series": {
+              "type": "string"
+            },
+            "aggregation": {
+              "type": "string",
+              "enum": [
+                "SUM",
+                "COUNT",
+                "AVG",
+                "MAX",
+                "MIN"
+              ]
+            }
+          }
+        },
+        "scatter": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "string"
+            },
+            "y": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "aggregation": {
+              "type": "string",
+              "enum": [
+                "SUM",
+                "COUNT",
+                "AVG",
+                "MAX",
+                "MIN"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "json.layout_config": {
+      "scope": "frontend_config_shape_only",
+      "notes": "Generated from the dashboard layout config type. Encode this object as a JSON string in layout_config inside --json. This describes structure, not business validation.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "size": {
+            "type": "string",
+            "enum": [
+              "third",
+              "half",
+              "full"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "dashboard update-chart": {
+    "json.chart_config": {
+      "scope": "frontend_config_shape_only",
+      "notes": "Generated from the dashboard renderer config type and production serializer. Encode this object as a JSON string in chart_config inside --json. Select mappings from SQL preview column names. by_chart_type lists serialized fields for each chart_type; this describes structure, not business validation.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "x": {
+            "type": "string"
+          },
+          "y": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "barY": {
+            "type": "string"
+          },
+          "lineY": {
+            "type": "string"
+          },
+          "series": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "aggregation": {
+            "type": "string",
+            "enum": [
+              "SUM",
+              "COUNT",
+              "AVG",
+              "MAX",
+              "MIN"
+            ]
+          }
+        }
+      },
+      "by_chart_type": {
+        "metric": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "string"
+            }
+          }
+        },
+        "table": {
+          "type": "object",
+          "properties": {
+            "fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "line": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "string"
+            },
+            "y": {
+              "type": "string"
+            },
+            "aggregation": {
+              "type": "string",
+              "enum": [
+                "SUM",
+                "COUNT",
+                "AVG",
+                "MAX",
+                "MIN"
+              ]
+            }
+          }
+        },
+        "bar": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "string"
+            },
+            "y": {
+              "type": "string"
+            },
+            "aggregation": {
+              "type": "string",
+              "enum": [
+                "SUM",
+                "COUNT",
+                "AVG",
+                "MAX",
+                "MIN"
+              ]
+            }
+          }
+        },
+        "pie": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "string"
+            },
+            "y": {
+              "type": "string"
+            },
+            "aggregation": {
+              "type": "string",
+              "enum": [
+                "SUM",
+                "COUNT",
+                "AVG",
+                "MAX",
+                "MIN"
+              ]
+            }
+          }
+        },
+        "area": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "string"
+            },
+            "y": {
+              "type": "string"
+            },
+            "aggregation": {
+              "type": "string",
+              "enum": [
+                "SUM",
+                "COUNT",
+                "AVG",
+                "MAX",
+                "MIN"
+              ]
+            }
+          }
+        },
+        "combo": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "string"
+            },
+            "barY": {
+              "type": "string"
+            },
+            "lineY": {
+              "type": "string"
+            },
+            "aggregation": {
+              "type": "string",
+              "enum": [
+                "SUM",
+                "COUNT",
+                "AVG",
+                "MAX",
+                "MIN"
+              ]
+            }
+          }
+        },
+        "stacked_bar": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "string"
+            },
+            "y": {
+              "type": "string"
+            },
+            "series": {
+              "type": "string"
+            },
+            "aggregation": {
+              "type": "string",
+              "enum": [
+                "SUM",
+                "COUNT",
+                "AVG",
+                "MAX",
+                "MIN"
+              ]
+            }
+          }
+        },
+        "scatter": {
+          "type": "object",
+          "properties": {
+            "x": {
+              "type": "string"
+            },
+            "y": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "aggregation": {
+              "type": "string",
+              "enum": [
+                "SUM",
+                "COUNT",
+                "AVG",
+                "MAX",
+                "MIN"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "json.layout_config": {
+      "scope": "frontend_config_shape_only",
+      "notes": "Generated from the dashboard layout config type. Encode this object as a JSON string in layout_config inside --json. This describes structure, not business validation.",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "size": {
+            "type": "string",
+            "enum": [
+              "third",
+              "half",
+              "full"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

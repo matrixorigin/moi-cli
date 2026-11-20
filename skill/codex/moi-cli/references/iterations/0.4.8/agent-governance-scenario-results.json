@@ -1,0 +1,46 @@
+{
+  "environment": "production",
+  "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+  "cli_version": "0.1.0-dev.d5c5c3a",
+  "candidate_skill_version": "0.4.4",
+  "results": [
+    {
+      "capability_id": "agent-conversation",
+      "scenario_id": "team-automatic-history",
+      "status": "failed",
+      "result": "同Team/context/member连续两轮，第二轮仍称没有更早的一轮，未回答448。",
+      "evidence": "team/receipts/messages-history-01.json",
+      "comparison": "unchanged_gap"
+    },
+    {
+      "capability_id": "agent-conversation",
+      "scenario_id": "team-changed-content-same-key",
+      "status": "failed",
+      "result": "同键异文返回原task且消息总数保持2，新意图未执行；精确重放单独保持幂等。",
+      "evidence": "team/receipts/message-changed-same-key.json + team/receipts/messages-after-replay.json",
+      "comparison": "unchanged_gap"
+    },
+    {
+      "capability_id": "agent-skill-tool",
+      "scenario_id": "plugin-skill-body-read",
+      "status": "failed",
+      "result": "GitHub正式release/capability/path均可读，read-plugin-skill仍404。",
+      "request_id": "646ee554-461f-477b-86c1-bce7c992a5cf",
+      "evidence": "plugin/receipts/read-github-skill.json",
+      "comparison": "unchanged_gap"
+    },
+    {
+      "capability_id": "agent-skill-tool",
+      "scenario_id": "same-id-attachment-update",
+      "status": "cli_missing",
+      "result": "无update-skill专用入口；通用resource-put没有已核实的同ID附件更新合同。",
+      "evidence": "offline/agent-help.txt + offline/import-skill-package-help.txt + offline/resource-put-help.txt",
+      "comparison": "unchanged_gap"
+    }
+  ],
+  "cleanup": {
+    "team_id": "team_5ab482ea-2d20-4a0b-b624-fcaf82703053",
+    "status": "deleted",
+    "evidence": "team/receipts/get-team-after-expected-delete.json"
+  }
+}

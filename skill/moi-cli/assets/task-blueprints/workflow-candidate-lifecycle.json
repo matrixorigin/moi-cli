@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "blueprint_id": "workflow-candidate-lifecycle",
+  "version": "1.0.0",
+  "title": "自然语言 Workflow 创建、部署、修改与新版本复验",
+  "goal": "用真实 Workflow Agent 候选完成 v1 创建、自然语言修改为 v2，并分别验证两个版本的正式执行",
+  "required_inputs": ["workflow_id", "source_volume_id", "model_id", "question", "modification_goal"],
+  "steps": [
+    {
+      "step_id": "candidate-v1",
+      "capability_id": "workflow-lifecycle",
+      "intent": "通过 Workflow Agent 创建 v1 候选并检查真实候选测试",
+      "effect": "write",
+      "depends_on": [],
+      "acceptance": ["候选 task completed 且存在 workflow.candidate", "artifact/proposal/proposal_id 来自服务端 artifact", "候选测试覆盖目标业务断言且无未说明外部副作用"]
+    },
+    {
+      "step_id": "deploy-v1",
+      "capability_id": "workflow-lifecycle",
+      "intent": "接受 v1 候选并部署到指定 Workflow App",
+      "effect": "write",
+      "depends_on": ["candidate-v1"],
+      "acceptance": ["acceptance 文件是 accept-candidate 的完整原始返回", "部署 App ID 正确且版本指向 v1", "latest published version 与部署回执一致"]
+    },
+    {
+      "step_id": "run-v1",
+      "capability_id": "workflow-lifecycle",
+      "intent": "用真实隔离输入执行 v1 并保存业务结果或原始失败",
+      "effect": "write",
+      "depends_on": ["deploy-v1"],
+      "acceptance": ["execution 绑定 v1 且到达明确终态", "业务输出达到 v1 预期或保留可复现失败证据"]
+    },
+    {
+      "step_id": "candidate-v2",
+      "capability_id": "workflow-lifecycle",
+      "intent": "在同一 Workflow Agent 会话中自然语言修改候选，针对 v1 结果补充测试",
+      "effect": "write",
+      "depends_on": ["run-v1"],
+      "acceptance": ["新 task/artifact/proposal 与 v1 不同", "修改范围符合授权且候选测试覆盖 v1 暴露的问题", "保留 v1 图、版本和执行证据"]
+    },
+    {
+      "step_id": "deploy-v2",
+      "capability_id": "workflow-lifecycle",
+      "intent": "接受并部署 v2 到同一个 Workflow App",
+      "effect": "write",
+      "depends_on": ["candidate-v2"],
+      "acceptance": ["App ID 未改变且 previous_workflow_version_id 是 v1", "latest published version 是 v2", "候选 provenance 对应新 task/artifact"]
+    },
+    {
+      "step_id": "run-v2",
+      "capability_id": "workflow-lifecycle",
+      "intent": "执行 v2 并证明本次正式运行使用新版本且业务结果正确",
+      "effect": "write",
+      "depends_on": ["deploy-v2"],
+      "acceptance": ["execution 绑定 v2 且到达 completed", "业务输出和引用达到修改后的断言", "v1 历史结果仍归属 v1，未被改写"]
+    }
+  ],
+  "cleanup": {
+    "requires_explicit_confirmation": true,
+    "objects": ["本次隔离 Workflow App 及其执行", "本次测试输入和派生资源"],
+    "verification": "删除前保存 v1/v2 必要证据；只清理明确授权的测试对象并回读状态"
+  }
+}
