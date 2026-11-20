@@ -1,0 +1,50 @@
+{
+  "environment": "production",
+  "auth": "native",
+  "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+  "cli_channel": "candidate",
+  "cli_version": "0.1.0-dev.d5c5c3a",
+  "validated_on": "2026-11-15",
+  "observations": [
+    {
+      "capability_id": "knowledge-preparation",
+      "scenario_id": "knowledge-create-spec-minimal",
+      "status": "passed",
+      "conditions": {
+        "scope": "standard and drawing minimal spec metadata creation without files-file"
+      },
+      "result": "标准 model 130007 与 drawing model 110009 均按最小 spec 创建，类型和策略正确，get/export 均无 files；该结果只证明元数据创建合同。",
+      "limits": [
+        "未传 files-file，不能声称 embedding 已初始化；初始化应见完整 files-file 场景。"
+      ],
+      "evidence": "calls/create-standard-min + calls/create-drawing-min + calls/get-min-130007 + calls/get-min-110009 + calls/export-130007 + calls/export-110009"
+    },
+    {
+      "capability_id": "knowledge-preparation",
+      "scenario_id": "knowledge-preserve-embedding-image-prepare-and-qa",
+      "status": "passed",
+      "conditions": {
+        "scope": "drawing full text/image embedding with preserve_embedding=true, local image PDF, independent visual QA"
+      },
+      "result": "model 130008 初始化完整文本/图片配置且 preserve_embedding=true；来源 succeeded，2 张图片 ready，独立问答实际读出 MOSS-64/38L、V-8/CLOSED 和 SKY-27→MOSS-64→AMBER-91，visual_hit 指向当前模型和页图。",
+      "limits": [
+        "仅证明当前生产配置和合成图片；未验私有 backend、其它模型维度或并发创建。",
+        "第一次问答未正确读取图片，第二次按 max_bytes 和 volume 拒绝后省略参数的合同才成功；两次记录均保留。"
+      ],
+      "evidence": "calls/create-drawing-image-full + image-model-final.json + image-qa2-result.json + visual-page.png"
+    },
+    {
+      "capability_id": "knowledge-preparation",
+      "scenario_id": "knowledge-terminal-reconcile-projection",
+      "status": "passed",
+      "conditions": {
+        "scope": "source list succeeded but persistent document pending and completed job still requires terminal reconcile"
+      },
+      "result": "首次文档详情 pending 且 job succeeded/reconcile_required=true；仅做一次终态 reconcile 后文档 succeeded、6 段和 ETag 可读，待协调 job 列表为空。",
+      "limits": [
+        "只证明本次终态投影恢复，不据此允许运行中 job 反复 reconcile，也不推广到失败 source。"
+      ],
+      "evidence": "calls/document-image-source + calls/reconcile-image-terminal + calls/document-image-source-terminal + calls/jobs-image-terminal"
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "environment": "production",
+  "auth": "native",
+  "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+  "cli_channel": "candidate",
+  "cli_version": "0.1.0-dev.d5c5c3a",
+  "validated_on": "2026-11-15",
+  "observations": [
+    {
+      "capability_id": "connector-lifecycle",
+      "scenario_id": "connector-config-authoring",
+      "status": "passed",
+      "conditions": {
+        "scope": "synthetic invalid S3 config through stdin; create, read, replace, validate and delete"
+      },
+      "result": "Connector 517534000280 创建/读取/更新/删除均成功；两次 validate 均 valid=false，删除后 get 为404。",
+      "limits": [
+        "只证明配置生命周期，不证明真实外部 S3 连通、导入或导出。",
+        "无效端点验证失败是预期拒绝，不能记为有效连接。"
+      ],
+      "evidence": "calls/connector-create + calls/connector-update + calls/connector-validate-invalid + calls/connector-validate-updated + calls/connector-get-deleted"
+    },
+    {
+      "capability_id": "agent-runtime",
+      "scenario_id": "sandbox-quota-preserve",
+      "status": "passed",
+      "conditions": {
+        "scope": "preserve max_managed_count=3 and auto_ephemeral=inherit without creating sandbox"
+      },
+      "result": "sandbox update-quota 写入和 get-quota 读回成功，未改变额度或自动临时沙箱策略。",
+      "limits": [
+        "仅证明保持值写入和读回，不证明扩容、Sandbox创建、终端、网络或负载。"
+      ],
+      "evidence": "calls/sandbox-quota-preserve + calls/sandbox-quota-after-preserve"
+    },
+    {
+      "capability_id": "agent-runtime",
+      "scenario_id": "sandbox-create-small-limited",
+      "status": "failed",
+      "conditions": {
+        "scope": "small 10GiB limited network with empty tools and no explicit compute resource"
+      },
+      "result": "sandbox create 返回 SANDBOX_ERROR/500，request_id=84949a3b-d874-4ac1-a9ee-b5378f9a3131；list 为空，get 为404。",
+      "limits": [
+        "未重复创建；公开错误不足以区分执行后端、资源或其它内部原因。",
+        "没有实例、终端、网络连接或计算负载，不证明 Sandbox 创建可用。"
+      ],
+      "request_id": "84949a3b-d874-4ac1-a9ee-b5378f9a3131",
+      "evidence": "calls/sandbox-create + calls/sandbox-quota-after-preserve"
+    },
+    {
+      "capability_id": "agent-runtime",
+      "scenario_id": "runtime-authoring-inputs",
+      "status": "partial",
+      "conditions": {
+        "scope": "runner lifecycle passed; sandbox quota preserve passed; sandbox create failed; backend directory empty"
+      },
+      "result": "Runner 管理生命周期和 Sandbox 配额保持可用，但 Sandbox create 返回500，未验证终端、网络、配额扩容或负载。",
+      "limits": [
+        "未创建 Sandbox，未连接终端，未验证网络、配额扩容、真实负载或自有 backend。",
+        "Connector 配置生命周期通过不代替外部连接或 Sandbox 执行环境验收。"
+      ],
+      "evidence": "calls/sandbox-create + calls/sandbox-quota-preserve + calls/sandbox-quota-after-preserve"
+    }
+  ]
+}

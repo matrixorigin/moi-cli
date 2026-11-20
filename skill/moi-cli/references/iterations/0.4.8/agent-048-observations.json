@@ -1,0 +1,91 @@
+{
+  "environment": "production",
+  "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+  "cli_channel": "candidate",
+  "cli_version": "0.1.0-dev.d5c5c3a",
+  "skill_version": "0.4.7",
+  "validated_on": "2026-11-15",
+  "observations": [
+    {
+      "capability_id": "agent-skill-tool",
+      "scenario_id": "plugin-skill-body-read",
+      "status": "passed",
+      "classification": "skill_documentation_defect_resolved",
+      "conditions": {
+        "scope": "GitHub plugin release 1.0.2 main Skill body",
+        "auth": "native",
+        "path": "SKILL.md"
+      },
+      "result": "使用搜索返回的完整 capability_ref，read-plugin-skill --path SKILL.md 成功返回3574字节正文；正文与本地发布源逐字节一致。此前传 skills/github/SKILL.md 会在服务端再拼接Skill根目录，形成重复路径并404。",
+      "limits": [
+        "describe-plugin-capability 返回的 skill_path 是包内完整路径；read-plugin-skill 的 path 是Skill根目录下的相对路径，二者不能直接照抄。",
+        "本结果只覆盖GitHub主Skill正文；嵌套引用应使用 references/... 相对路径，其他插件仍需各自核验。"
+      ],
+      "evidence": "calls/plugin-search-github + calls/plugin-read-github-skill + calls/plugin-read-github-skill-relative + plugin-digests.json"
+    },
+    {
+      "capability_id": "agent-skill-tool",
+      "scenario_id": "same-id-attachment-update",
+      "status": "cli_missing",
+      "classification": "public_product_and_cli_capability_gap",
+      "conditions": {
+        "scope": "同Skill ID原位替换附件",
+        "auth": "native"
+      },
+      "result": "dev CLI没有update-skill入口，import-skill-package不接受目标Skill ID；通用resource-put只有开放JSON，没有附件上传合同。当前公开API仅提供PATCH元数据和GET附件，ImportSkillPackage固定Version=1并CreateWithFiles，不是同ID附件更新。",
+      "limits": [
+        "独立导入新包再切换Agent绑定是替代流程，不是同ID原位更新。",
+        "不能用未验证的resource-put/resource-patch猜测附件字段或发送覆盖请求。"
+      ],
+      "evidence": "offline/agent-help.txt + offline/import-skill-package-help.txt + offline/resource-put-help.txt + matrixflow-fork/moi/pkg/service/agentresource/skill_metadata.go + matrixflow-fork/moi/pkg/api/server.go"
+    },
+    {
+      "capability_id": "agent-conversation",
+      "scenario_id": "team-automatic-history",
+      "status": "failed",
+      "classification": "product_runtime_history_defect",
+      "conditions": {
+        "scope": "同Team/context/member连续两轮，第二轮不显式重复前文",
+        "auth": "native"
+      },
+      "result": "第一轮记住437和第二轮询问加11的消息均committed/completed，但第二轮回答没有更早的一轮，未回答448；既有运行时核对显示第二轮provider session_turn仍为1。",
+      "limits": [
+        "显式携带最少已确认事实可完成后续计算，但只是阶段账本绕行，不能改记自动历史继承通过。",
+        "没有证据表明调用者还需补history、provider session或其他CLI字段；精确根因需产品owner沿共享会话保存、冻结派发和provider历史加载排查。"
+      ],
+      "evidence": "../skill-044-agent-governance/team/receipts/messages-history-01.json + ../cli-dev-full-regression-20261114/agent-governance/production/team/receipts/message-history.json + installed Skill configure-agent-team-ingress.md"
+    },
+    {
+      "capability_id": "agent-automation",
+      "scenario_id": "dynamic-api-schema-payload",
+      "status": "failed",
+      "classification": "product_input_envelope_adaptation_defect",
+      "conditions": {
+        "scope": "合法a=19、b=23，trigger.input_schema要求a/b且additionalProperties=false",
+        "auth": "pat"
+      },
+      "result": "PAT认证和提交前schema检查均已通过，run确实包含payload.a=19和payload.b=23；但后续Workflow把automation_task_id、trigger_context、payload等整个外层对象按业务a/b schema校验，最终WORKFLOW_SUBMIT_FAILED/INPUT_VALIDATION_FAILED。",
+      "limits": [
+        "不是缺PAT、缺a/b或CLI字段错误；不能通过放宽业务schema、固定指令或重复提交冒充修复。",
+        "缺b的400预期拒绝是另一项已通过能力，不覆盖合法输入失败。"
+      ],
+      "evidence": "../skill-047-automation-api/schema-result.json + ../skill-047-automation-api/bodies/codex-skill047-schema-r3-create.json + ../skill-047-automation-api/bodies/codex-skill047-schema-r3-invoke.json"
+    },
+    {
+      "capability_id": "agent-automation",
+      "scenario_id": "dynamic-api-structured-output",
+      "status": "failed",
+      "classification": "product_runtime_payload_projection_defect",
+      "conditions": {
+        "scope": "合法a=19、b=23，无input_schema，严格answer整数对象输出",
+        "auth": "pat"
+      },
+      "result": "动态payload已保存，但模型回答未收到a/b，structured_output为空，最终OUTPUT_CONTRACT_VALIDATION_FAILED。当前源码的conversationTurnInput在没有显式message_parts时只把instruction_text放入模型消息，没有投影command.Payload，与生产现象一致。",
+      "limits": [
+        "本项失败可由动态参数未进入模型解释；现有证据不单独证明严格JSON输出校验器本身有独立缺陷。",
+        "空output_contract或固定指令返回527不能替代动态参数加严格JSON输出验收。"
+      ],
+      "evidence": "../skill-047-automation-api/structured-result.json + matrixflow-fork/moi/pkg/service/agentresource/automation_runtime_session_input.go + matrixflow-fork/moi/pkg/service/agentresource/automation_runtime_adapter.go"
+    }
+  ]
+}

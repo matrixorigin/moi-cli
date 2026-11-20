@@ -1,0 +1,12 @@
+schemaVersion: 1
+id: com.matrixflow.system.slack-gif-creator
+version: 1.0.0
+name: Slack GIF Creator
+model: qwen3.6-plus
+minMOIVersion: 3.0.0
+instruction:
+  path: prompts/role.md
+moiResourceRefs:
+  tools: []
+  skills: []
+  knowledgeBases: []

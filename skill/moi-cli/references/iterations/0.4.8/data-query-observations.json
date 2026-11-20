@@ -1,0 +1,64 @@
+{
+  "environment": "production",
+  "auth": "native",
+  "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+  "cli_channel": "candidate",
+  "cli_version": "0.1.0-dev.d5c5c3a",
+  "validated_on": "2026-11-15",
+  "evidence": "evidence/skill-0.4.4-coverage/data-query/RESULT.md",
+  "observations": [
+    {
+      "capability_id": "data-ingestion",
+      "scenario_id": "composite-key-update",
+      "status": "failed",
+      "result": "最新生产证据仍为 unsupported DML: update primary key on duplicate；本轮未重复提交写任务。",
+      "limits": ["显式暂存和 SQL 合并是另一条路径，不是原自动更新修复。"],
+      "evidence": "evidence/cli-dev-full-regression-20261114/data-assets/production/import-composite/composite-update-result.json"
+    },
+    {
+      "capability_id": "data-ingestion",
+      "scenario_id": "single-config-group-replay",
+      "status": "failed",
+      "result": "最新生产证据：只选 bad 仍因未选 good 的主键 200 冲突失败；本轮未重复提交写任务。",
+      "limits": ["每文件独立 table-config 的成功不能覆盖同配置整组文件。"],
+      "evidence": "evidence/cli-dev-full-regression-20261114/data-assets/production/import-policies/group-retry-result.json"
+    },
+    {
+      "capability_id": "data-ingestion",
+      "scenario_id": "catalog-zero-byte-staged-create",
+      "status": "partial",
+      "result": "0 字节 CSV 可 local-upload 暂存并取得 conn_file_id；schema 结构有效，但 create-task 返回 ErrServer/status=200。任务列表无目标，原表两行与 Volume 0 文件保持。",
+      "limits": ["暂存成功不代表可建任务；schema 通过不代表业务输入有效；没有任务 ID，内部原因未知。"],
+      "request_id": "da57d852-89a0-436c-99c4-167152db65fe",
+      "evidence": "evidence/skill-0.4.4-coverage/data-query/calls/zero-create-task/response.json"
+    },
+    {
+      "capability_id": "sql-query",
+      "scenario_id": "inline-zero-row-result-and-download",
+      "status": "failed",
+      "result": "真实表内联零行返回 success 和三列 schema；query-result 与下载均 500，未生成 CSV。",
+      "limits": ["内联执行成功只证明查询终态和列结构，不能证明空结果可读取或下载。"],
+      "request_ids": [
+        "a5d7b447-822b-407d-8037-505d0204cd2d",
+        "7ad3961f-86ca-4ea9-8bd1-929df7990e08"
+      ],
+      "evidence": "evidence/skill-0.4.4-coverage/data-query/calls/inline-zero-table-result/response.json"
+    },
+    {
+      "capability_id": "sql-query",
+      "scenario_id": "inline-constant-zero-row",
+      "status": "failed",
+      "result": "纯常量零行 SELECT 在省略和显式数据库时均返回 405 ErrResponseInvalid，没有 statement ID。",
+      "limits": ["只判定本次常量零行形式；真实表零行内联可执行，不能混为同一结果。"],
+      "evidence": "evidence/skill-0.4.4-coverage/data-query/calls/inline-zero-constant-with-db/response.json"
+    },
+    {
+      "capability_id": "dashboard-analytics",
+      "scenario_id": "zero-row-result-download",
+      "status": "failed",
+      "result": "已有合法零行 execution completed，但 chart-result 与 CSV 下载失败；本轮未重复创建看板。",
+      "limits": ["非零结果或执行 completed 不能覆盖空结果交付失败；at 是时间参数，不是 execution ID。"],
+      "evidence": "evidence/cli-dev-full-regression-20261114/query-analytics/dashboard-zero/summary.json"
+    }
+  ]
+}

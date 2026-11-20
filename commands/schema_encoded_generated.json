@@ -1,0 +1,320 @@
+{
+  "connector upload": {
+    "dedup": {
+      "additionalProperties": true,
+      "properties": {
+        "by": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "strategy": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "file-types": {
+      "items": {
+        "type": "integer"
+      },
+      "type": "array"
+    },
+    "meta": {
+      "items": {
+        "additionalProperties": true,
+        "properties": {
+          "filename": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "table-config": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "properties": {
+            "columnNameRow": {
+              "type": "integer"
+            },
+            "conflict": {
+              "type": "integer"
+            },
+            "conn_file_ids": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "create_table": {
+              "additionalProperties": true,
+              "properties": {
+                "description": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "tableColumn": {
+                  "items": {
+                    "additionalProperties": true,
+                    "properties": {
+                      "col_num_in_file": {
+                        "type": "integer"
+                      },
+                      "column": {
+                        "type": "string"
+                      },
+                      "dataType": {
+                        "type": "string"
+                      },
+                      "defaultValue": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "isKey": {
+                        "type": "boolean"
+                      },
+                      "precision": {
+                        "items": {
+                          "type": "integer"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            },
+            "csv": {
+              "additionalProperties": true,
+              "properties": {
+                "delimiter": {
+                  "type": "string"
+                },
+                "isEscape": {
+                  "type": "boolean"
+                },
+                "null_values": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "separator": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "database_id": {
+              "type": "integer"
+            },
+            "existed_table": {
+              "items": {
+                "additionalProperties": true,
+                "properties": {
+                  "col_num_in_file": {
+                    "type": "integer"
+                  },
+                  "column": {
+                    "type": "string"
+                  },
+                  "tableColumn": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "existed_table_opts": {
+              "additionalProperties": true,
+              "properties": {
+                "method": {
+                  "type": "string"
+                },
+                "table_name": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "isColumnName": {
+              "type": "boolean"
+            },
+            "new_table": {
+              "type": "boolean"
+            },
+            "rowStart": {
+              "type": "integer"
+            },
+            "sheet_name": {
+              "type": "string"
+            },
+            "table_id": {
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        },
+        {
+          "additionalProperties": true,
+          "properties": {
+            "multi_sheet": {
+              "type": "boolean"
+            },
+            "tables": {
+              "items": {
+                "additionalProperties": true,
+                "properties": {
+                  "columnNameRow": {
+                    "type": "integer"
+                  },
+                  "conflict": {
+                    "type": "integer"
+                  },
+                  "conn_file_ids": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "create_table": {
+                    "additionalProperties": true,
+                    "properties": {
+                      "description": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "tableColumn": {
+                        "items": {
+                          "additionalProperties": true,
+                          "properties": {
+                            "col_num_in_file": {
+                              "type": "integer"
+                            },
+                            "column": {
+                              "type": "string"
+                            },
+                            "dataType": {
+                              "type": "string"
+                            },
+                            "defaultValue": {
+                              "type": "string"
+                            },
+                            "description": {
+                              "type": "string"
+                            },
+                            "isKey": {
+                              "type": "boolean"
+                            },
+                            "precision": {
+                              "items": {
+                                "type": "integer"
+                              },
+                              "type": "array"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "type": "array"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "csv": {
+                    "additionalProperties": true,
+                    "properties": {
+                      "delimiter": {
+                        "type": "string"
+                      },
+                      "isEscape": {
+                        "type": "boolean"
+                      },
+                      "null_values": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "separator": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "database_id": {
+                    "type": "integer"
+                  },
+                  "existed_table": {
+                    "items": {
+                      "additionalProperties": true,
+                      "properties": {
+                        "col_num_in_file": {
+                          "type": "integer"
+                        },
+                        "column": {
+                          "type": "string"
+                        },
+                        "tableColumn": {
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "existed_table_opts": {
+                    "additionalProperties": true,
+                    "properties": {
+                      "method": {
+                        "type": "string"
+                      },
+                      "table_name": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "isColumnName": {
+                    "type": "boolean"
+                  },
+                  "new_table": {
+                    "type": "boolean"
+                  },
+                  "rowStart": {
+                    "type": "integer"
+                  },
+                  "sheet_name": {
+                    "type": "string"
+                  },
+                  "table_id": {
+                    "type": "integer"
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      ]
+    }
+  }
+}

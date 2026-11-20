@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "blueprint_id": "agent-version-artifacts",
+  "version": "1.0.0",
+  "title": "Agent 双版本、默认切换、任务成果与取消恢复",
+  "goal": "在同一隔离 Agent 上验证 v1/v2 加载、默认切换与回滚、成果交付、任务取消和包导出",
+  "required_inputs": ["agent_id", "package_v1", "package_v2", "task_prompt"],
+  "steps": [
+    {
+      "step_id": "load-v1",
+      "capability_id": "agent-package-resource",
+      "intent": "构建、验证并加载 v1 Agent 包",
+      "effect": "write",
+      "depends_on": [],
+      "acceptance": ["v1 source_digest 与包一致且 version.status=runnable", "Agent 与版本真实 ID 已保存"]
+    },
+    {
+      "step_id": "load-v2",
+      "capability_id": "agent-package-resource",
+      "intent": "加载同 Agent 的 v2 并检查默认版本是否按授权变化",
+      "effect": "write",
+      "depends_on": ["load-v1"],
+      "acceptance": ["v2 runnable 且 digest 与 v2 包一致", "v1 仍保留；不把 load 成功误当默认已切换"]
+    },
+    {
+      "step_id": "default-v2",
+      "capability_id": "agent-package-resource",
+      "intent": "显式切换默认版本到 v2 并回读绑定",
+      "effect": "write",
+      "depends_on": ["load-v2"],
+      "acceptance": ["default_version=v2", "绑定按 v2 与追加授权回读一致"]
+    },
+    {
+      "step_id": "run-v2",
+      "capability_id": "agent-conversation",
+      "intent": "通过新任务验证 v2 实际执行和正式文件成果",
+      "effect": "write",
+      "depends_on": ["default-v2"],
+      "acceptance": ["原 task completed 且运行 manifest 使用 v2", "正式 file artifact 可下载且正文/摘要符合预期"]
+    },
+    {
+      "step_id": "rollback-v1",
+      "capability_id": "agent-package-resource",
+      "intent": "将默认版本回滚到 runnable 的 v1 并检查新旧历史保持",
+      "effect": "write",
+      "depends_on": ["run-v2"],
+      "acceptance": ["default_version=v1", "新任务使用 v1；已完成的 v2 任务和结果保持 v2"]
+    },
+    {
+      "step_id": "cancel-task",
+      "capability_id": "agent-conversation",
+      "intent": "对指定未完成任务执行一次取消并回读原 task",
+      "effect": "write",
+      "depends_on": ["rollback-v1"],
+      "acceptance": ["原 task 到达 canceled 且没有重复发送任务", "取消前的文件或部分输出单独记录，不当作完成"]
+    },
+    {
+      "step_id": "export-verify",
+      "capability_id": "agent-package-resource",
+      "intent": "导出指定版本并在本机校验包完整性和可编辑内容",
+      "effect": "write",
+      "depends_on": ["cancel-task"],
+      "acceptance": ["导出文件完整且 agent verify --file 通过", "Agent ID、版本、digest 和源指令符合预期"]
+    }
+  ],
+  "cleanup": {
+    "requires_explicit_confirmation": true,
+    "objects": ["本次 Agent 成果", "本次测试 Skill 绑定", "本次隔离 Agent 根对象"],
+    "verification": "成果/placement、根对象、版本元数据和物理文件分别核对，不宣称全部物理擦除"
+  }
+}

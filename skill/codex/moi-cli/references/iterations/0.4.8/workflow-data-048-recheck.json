@@ -1,0 +1,53 @@
+{
+  "environment": "production",
+  "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+  "checked_on": "2026-11-15",
+  "new_writes": false,
+  "checks": [
+    {
+      "scenario_id": "dashboard-relations-drel02",
+      "status": "partial",
+      "classification": "documented product contract limitation; not missing CLI parameters",
+      "parameter_audit": {
+        "sql": "JOIN fact_orders to dim_regions; SELECT alias region; x chart field region",
+        "request": {"dimensions": [{"role": "x", "value": "east"}]},
+        "schema": "dimensions[] accepts role and value",
+        "complete": true
+      },
+      "current_result": {
+        "exit_code": 1,
+        "http_status": 400,
+        "code": "ErrDataDashboardDrillThroughUnsupported",
+        "request_id": "b2032785-b9dc-4aa6-92cb-a90a75468bef"
+      },
+      "recovery": "Explicit physical JOIN snapshot supports single-table drill and CSV; east/open/100.00 retained and closed/50.00 excluded.",
+      "limits": ["Snapshot is separately maintained and does not fix native JOIN drill or provide atomic synchronization."],
+      "evidence": "calls/join-dashboard-current + calls/join-drill-current + ../skill-046-data-analytics/calls/dash-snapshot-drill-success + ../skill-046-data-analytics/snapshot-east.csv"
+    },
+    {
+      "scenario_id": "automation-revisions-ar-04",
+      "status": "partial",
+      "classification": "product revision scheduling path failure; input complete, internal cause unknown",
+      "observation_window": {
+        "v2_active_at": "2026-11-14T16:40:28Z",
+        "next_trigger_at": "2026-11-14T16:42:00Z",
+        "last_poll_before_disable": "2026-11-14T16:43:44Z",
+        "disabled_at": "2026-11-14T16:43:50Z",
+        "v2_runs_observed": 0
+      },
+      "current_result": {
+        "task_version": 2,
+        "task_status": "archived",
+        "runs_total": 1,
+        "only_run_version": 1,
+        "late_v2_run": false
+      },
+      "controls": {
+        "v1_same_task": "cron succeeded with SKILL045_A",
+        "fresh_replacement": "cron succeeded with SKILL045_B; current run remains succeeded"
+      },
+      "limits": ["Do not generalize to every revised task; do not reactivate the archived object; replacement does not repair revision scheduling."],
+      "evidence": "calls/cron-revision-task-current + calls/cron-revision-runs-current + calls/cron-replacement-run-current + ../skill-045-agent-automation/receipts/activate-v2.json + ../skill-045-agent-automation/receipts/disable-final.json"
+    }
+  ]
+}

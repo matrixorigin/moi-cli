@@ -1,0 +1,51 @@
+{
+  "environment": "production",
+  "auth": "native",
+  "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+  "cli_channel": "candidate",
+  "cli_version": "0.1.0-dev.d5c5c3a",
+  "validated_on": "2026-11-14",
+  "observations": [
+    {
+      "capability_id": "workflow-lifecycle",
+      "scenario_id": "manual-publish-pointer-recovery",
+      "status": "passed",
+      "conditions": {
+        "scope": "legacy publish leaves App pointer stale; ordinary deploy recovery on same App"
+      },
+      "result": "手工 v2 published 后 App 仍指 v1且运行400；普通 deploy 生成 v3，App/execution 均为 v3，输出 route=v2。",
+      "limits": [
+        "手工 create-version/publish-version 原路径仍失败，不计为原路径修复"
+      ],
+      "evidence": "state.json#manual_publish_recovery"
+    },
+    {
+      "capability_id": "job-recovery",
+      "scenario_id": "node-rerun-sequential-preflight-dedupe",
+      "status": "passed",
+      "conditions": {
+        "scope": "same recorded source execution/node/source node/mode; sequential repeat"
+      },
+      "result": "list-run-rerun-branches 找回已成功恢复，第二次创建跳过，分支数保持1。",
+      "limits": [
+        "不证明服务端幂等或并发首发防重",
+        "列表不含 values override/hash，不能阻止明确的新恢复意图"
+      ],
+      "evidence": "state.json#node_rerun_dedupe"
+    },
+    {
+      "capability_id": "knowledge-preparation",
+      "scenario_id": "image-read-with-canonical-volume",
+      "status": "passed",
+      "conditions": {
+        "scope": "original file has direct placement in canonical root Volume"
+      },
+      "result": "原文件 placement=130012；read_file 使用同 file/Volume/max_bytes 成功，任务 completed。",
+      "limits": [
+        "派生页图没有原文件 Volume 的直接 placement，必须按可选合同省略 volume_id",
+        "仅证明本文件和当前任务授权范围"
+      ],
+      "evidence": "state.json#image_volume_contract and image-volume-original-task.json"
+    }
+  ]
+}

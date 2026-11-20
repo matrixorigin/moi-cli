@@ -1,0 +1,38 @@
+{
+  "environment": "production",
+  "auth": "native",
+  "workspace_id": "d175f639-2846-3433-6e24-43b4a53bee6b",
+  "cli_channel": "candidate",
+  "cli_version": "0.1.0-dev.d5c5c3a",
+  "validated_on": "2026-11-15",
+  "observations": [
+    {
+      "capability_id": "catalog-discovery",
+      "scenario_id": "nested-recursive-discovery",
+      "status": "passed",
+      "conditions": {
+        "scope": "recursive per-volume files calls with page_size=1 on a previously root-only nested tree"
+      },
+      "result": "database-children仅返回root；从根Volume逐层catalog files并分页，发现3个Volume、2个嵌套目录和2份文件，ID完整且无重复。",
+      "limits": [
+        "只证明本次隔离小目录树；database-children本身仍是root-only，递归需由调用方完成。",
+        "更深目录、权限拒绝和环引用仍需有界深度/visited防护，不能承诺无限递归。"
+      ],
+      "evidence": "nested-enumeration-paged.json + nested-enumeration.json"
+    },
+    {
+      "capability_id": "sql-query",
+      "scenario_id": "workbook-preserve-new-version",
+      "status": "passed",
+      "conditions": {
+        "scope": "create a new workbook version instead of resaving a finalized version"
+      },
+      "result": "版本A保留SELECT 31*17并执行527，新版本B执行SELECT 31*18得558；两版正文各自正确。",
+      "limits": [
+        "不证明服务端CAS、不可变save或并发合并；同ID重存仍可能覆盖。",
+        "多方编辑仍需单一写入者或外部协调，执行前必须重读所选版本。"
+      ],
+      "evidence": "workbook-preservation.json"
+    }
+  ]
+}

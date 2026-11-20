@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "blueprint_id": "catalog-workflow-knowledge",
+  "version": "1.0.0",
+  "title": "Catalog 文件经 Workflow 进入 Knowledge 并核验引用",
+  "goal": "从已确认的非空 Catalog Volume 出发，完成 Workflow 处理、Knowledge 准备和带正式引用的问答",
+  "required_inputs": ["volume_id", "workflow_id", "model_id", "question"],
+  "steps": [
+    {
+      "step_id": "inspect-input",
+      "capability_id": "catalog-discovery",
+      "intent": "读取输入 Volume 和每个真实文件，固定本次输入集合",
+      "effect": "read",
+      "depends_on": [],
+      "acceptance": ["Volume 非空且属于当前工作区", "保存本次真实 file_id 集合和文件详情"]
+    },
+    {
+      "step_id": "run-workflow",
+      "capability_id": "workflow-lifecycle",
+      "intent": "用已确认版本和输入运行 Workflow，分开记录 dispatch 与 execution",
+      "effect": "write",
+      "depends_on": ["inspect-input"],
+      "acceptance": ["本次 execution 到达 completed", "执行绑定预期版本且业务输出符合输入断言", "产物与本次 file_id/execution 关联"]
+    },
+    {
+      "step_id": "prepare-knowledge",
+      "capability_id": "knowledge-preparation",
+      "intent": "将本次真实产物或来源准备为 Knowledge 文档并核对持久状态",
+      "effect": "write",
+      "depends_on": ["run-workflow"],
+      "acceptance": ["目标 source 的 ingest_status=succeeded 且 enabled", "source/model/file 身份与本次输入一致", "文档分段和 ETag 可读"]
+    },
+    {
+      "step_id": "verify-answer",
+      "capability_id": "agent-conversation",
+      "intent": "在新会话提问并核对答案、检索工具和正式来源引用",
+      "effect": "write",
+      "depends_on": ["prepare-knowledge"],
+      "acceptance": ["原 task 到达 completed 且答案符合预设事实", "实际检索和选源工具成功", "source_refs 匹配当前 model/source/file/chunk"]
+    }
+  ],
+  "cleanup": {
+    "requires_explicit_confirmation": true,
+    "objects": ["本次新建的 Workflow/execution", "本次新建的 Knowledge model/source", "本次上传任务及输入 Volume/database"],
+    "verification": "只删除明确授权的测试对象并逐个回读 404；物理文件元数据与 placement 分开报告"
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "source": {
+    "row_id": "kb-source-e2f37d3dcd3db743f6a0dbc9",
+    "source_id": "kb-source-e2f37d3dcd3db743f6a0dbc9",
+    "source_type": "file",
+    "model_id": 130009,
+    "resource_id": "67b75f74-ba83-4d69-900c-8ea1b32d2a1d",
+    "source_resource_id": "67b75f74-ba83-4d69-900c-8ea1b32d2a1d",
+    "kb_resource_id": "67b75f74-ba83-4d69-900c-8ea1b32d2a1d",
+    "source_file_id": "67b75f74-ba83-4d69-900c-8ea1b32d2a1d",
+    "kb_file_id": "67b75f74-ba83-4d69-900c-8ea1b32d2a1d",
+    "display_name": "kb048-note.md",
+    "path": [
+      "knowledge_base",
+      "kb_130009",
+      "kb048-note.md"
+    ],
+    "source_path": "knowledge_base/kb_130009/kb048-note.md",
+    "size_bytes": 200,
+    "ingest_status": "succeeded",
+    "enabled": true,
+    "effective_enabled": true,
+    "created_by": "e9bcb1d5-fd07-4196-b592-7144c68e0381",
+    "updated_by": "e9bcb1d5-fd07-4196-b592-7144c68e0381",
+    "updated_at": 1794723859,
+    "governance_status": "managed"
+  },
+  "preview": {
+    "available": true
+  },
+  "file_info": {
+    "enabled": true,
+    "effective_enabled": true
+  },
+  "segment_status": {
+    "available": true,
+    "total": 4
+  },
+  "segments": [
+    {
+      "segment_id": "doc_b64d0006aa92d31bf2db8fe1ecfddaeb",
+      "level": "chunk",
+      "chunk_id": "doc_b64d0006aa92d31bf2db8fe1ecfddaeb",
+      "content": "KB045 synthetic receiving note",
+      "word_count": 30,
+      "enabled": true,
+      "metadata": {
+        "volume_id": "140029"
+      }
+    },
+    {
+      "segment_id": "doc_44ab3eea7cd435b953199ee9bec14c76",
+      "level": "chunk",
+      "chunk_index": 1,
+      "chunk_id": "doc_44ab3eea7cd435b953199ee9bec14c76",
+      "content": "The amber depot has 17 sealed crates.",
+      "word_count": 37,
+      "enabled": true,
+      "metadata": {
+        "volume_id": "140029"
+      }
+    },
+    {
+      "segment_id": "doc_73243d0df54d56d1b35ac609d7639d20",
+      "level": "chunk",
+      "chunk_index": 2,
+      "chunk_id": "doc_73243d0df54d56d1b35ac609d7639d20",
+      "content": "The silver depot has 29 sealed crates.",
+      "word_count": 38,
+      "enabled": true,
+      "metadata": {
+        "volume_id": "140029"
+      }
+    },
+    {
+      "segment_id": "doc_5701d5f029cf9309cce626b6a0673f66",
+      "level": "chunk",
+      "chunk_index": 3,
+      "chunk_id": "doc_5701d5f029cf9309cce626b6a0673f66",
+      "content": "These values are fictional and are only used for the isolated KB045 preparation check.",
+      "word_count": 86,
+      "enabled": true,
+      "metadata": {
+        "volume_id": "140029"
+      }
+    }
+  ],
+  "etag": "b13c5776e54be09cfffa189bc600473029b45a56fbab1547d64f1fae410201aa"
+}

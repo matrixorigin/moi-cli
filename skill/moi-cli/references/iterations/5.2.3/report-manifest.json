@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "skill_version": "5.2.3",
+  "cli_version": "0.1.0-dev.d5c5c3a",
+  "source_commit": "d5c5c3a71515364a519f4ca5ac9c63d0baf07f1d",
+  "content_baseline": "moi-cli-dev 0.4.12",
+  "repository_release_version": "5.2.3",
+  "new_online_acceptance_in_this_repository_change": false,
+  "environment": {
+    "name": "content_baseline_and_private_repository_validation",
+    "baseline_online_business_calls": 0,
+    "repository_validation": "private_github_install",
+    "public_install": "not_run",
+    "online_business_writes": 0
+  },
+  "reports": [
+    "横向纵向功能报告.md",
+    "原版与dev版功能对比报告.md",
+    "总体进展报告.md"
+  ],
+  "supplementary_reports": [
+    "137项后续清单.md",
+    "56项继续补测报告.md",
+    "6项待补测结果.md",
+    "CLI合同缺口清单.md",
+    "CLI适合项-最新统计报告.md",
+    "复杂任务模板与恢复合同.md",
+    "失败原因分类.md"
+  ],
+  "scenario_counts": {
+    "feature_inventory_308": {
+      "passed": 123,
+      "blocked": 59,
+      "partial": 115,
+      "cli_missing": 10,
+      "failed": 1
+    },
+    "actionable_cli_141": {
+      "passed": 123,
+      "bug": 14,
+      "suspect": 4,
+      "pending": 0
+    },
+    "new_call_receipts": 0
+  },
+  "limitations": [
+    "0.4.12基线结果不作为5.2.3新增线上功能验收",
+    "公开仓库安装尚未执行",
+    "MatrixOne集成环境未在本轮运行",
+    "35个正式CLI合同缺口仍需Product API或CLI owner补齐",
+    "WorkBuddy不在本轮上传和验收范围"
+  ],
+  "evidence": [
+    "横向纵向功能报告.md",
+    "原版与dev版功能对比报告.md",
+    "总体进展报告.md",
+    "复杂任务模板与恢复合同.md",
+    "CLI合同缺口清单.md",
+    "../0.4.8/production-scenario-results.json",
+    "../0.4.8/workflow-knowledge-observations.json",
+    "../0.4.8/data-query-observations.json",
+    "../0.4.8/agent-governance-scenario-results.json"
+  ]
+}

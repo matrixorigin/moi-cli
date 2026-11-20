@@ -1,0 +1,3 @@
+# Isolated publication tests/SDK and the source workflow adapter.
+oss2==2.19.1
+PyYAML==6.0.2
