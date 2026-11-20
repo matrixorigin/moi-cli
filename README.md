@@ -7,7 +7,6 @@
 ## Requirements and installation
 
 - **[GitHub Release v5.2.3](https://github.com/matrixorigin/moi-cli/releases/tag/v5.2.3).** Confirm the version matches your deployment, then download `moi-cli-<version>-<os>-<arch>.tar.gz` for your system and its `SHA256SUMS`. The OS is `linux` or `darwin` (macOS), and the architecture is `amd64` or `arm64`; for example, Apple silicon Macs use `moi-cli-<version>-darwin-arm64.tar.gz`. Verify the downloaded archive against its SHA-256 entry in `SHA256SUMS`, extract it, and put `moi-cli` on your `PATH`. The filename version omits the release tag’s `v` prefix.
-- **Older offline archive.** Follow the [official installation and update guide](https://docs.matrixorigin.cn/moi/en/5.0/developer/quickstart/downloads/cli.html) or ask your administrator for a build matching the MOI deployment, OS, and CPU architecture. The guide currently provides a macOS arm64 `0.1.0` offline archive with a SHA-256 checksum and installation steps.
 - **Astra-managed installation.** Use the paired Astra / MOI installer supplied for your deployment. For managed installations, check with `astra update check`, then update with `astra update`. For manual installs, replace the binary with a matching build.
 - **Build from source.** Use Go 1.25.7 or newer. From the root of this repository, build with the bundled dependencies:
 
@@ -71,7 +70,7 @@ Agent package authoring commands `agent init`, `agent verify`, `agent build`, an
 
 ## Compatibility and license
 
-`moi-cli` 5.2.3 targets the AI Studio API (`/v5`) on MOI 5.2.3. For other MOI versions, use the build specified by your deployment documentation. Older offline packages may cover different capabilities. `core-cli` and the legacy Catalog SDKs address the Catalog service.
+`moi-cli` 5.2.3 targets the AI Studio API (`/v5`) on MOI 5.2.3. For other MOI versions, use the build specified by your deployment documentation. `core-cli` and the legacy Catalog SDKs address the Catalog service.
 
 MOI CLI is licensed under the [Apache License 2.0](LICENSE). Dependencies and separately distributed components retain their own licenses and copyright notices.
 

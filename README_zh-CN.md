@@ -7,7 +7,6 @@
 ## 环境要求与安装
 
 - **[GitHub Release v5.2.3](https://github.com/matrixorigin/moi-cli/releases/tag/v5.2.3)。** 确认版本与部署匹配后，下载对应系统和架构的 `moi-cli-<版本号>-<系统>-<架构>.tar.gz` 及 `SHA256SUMS`。系统为 `linux` 或 `darwin`（macOS），架构为 `amd64` 或 `arm64`；例如 macOS Apple 芯片使用 `moi-cli-<版本号>-darwin-arm64.tar.gz`。用 `SHA256SUMS` 中对应文件的 SHA-256 值校验下载的归档，解压后将 `moi-cli` 放入 `PATH`。文件名中的版本号不带 Release 标签的 `v` 前缀。
-- **旧版离线包。** 参照[官方安装和更新指南](https://docs.matrixorigin.cn/moi/zh/5.0/developer/quickstart/downloads/cli.html)，或向管理员获取与 MOI 部署、操作系统和 CPU 架构匹配的版本。官网目前提供 macOS arm64 的 `0.1.0` 离线包、SHA-256 校验值和安装步骤。
 - **由 Astra 管理的安装。** 使用部署方提供的 Astra / MOI 配套安装器。安装后，可运行 `astra update check` 检查更新，再用 `astra update` 更新。手工安装的用户可用匹配的新版本替换二进制。
 - **从源码构建。** 需要 Go 1.25.7 或更高版本。在此仓库根目录使用随附依赖构建：
 
@@ -71,7 +70,7 @@ moi-cli skill export --dir ./moi-cli-skill
 
 ## 版本兼容性与许可证
 
-`moi-cli` 5.2.3 面向 MOI 5.2.3 的 AI Studio API（`/v5`）。使用其他 MOI 版本时，请按部署说明选择匹配的制品。旧离线包的能力覆盖可能不同。 `core-cli` 和旧版 Catalog SDK 面向 Catalog 服务。
+`moi-cli` 5.2.3 面向 MOI 5.2.3 的 AI Studio API（`/v5`）。使用其他 MOI 版本时，请按部署说明选择匹配的制品。`core-cli` 和旧版 Catalog SDK 面向 Catalog 服务。
 
 MOI CLI 采用 [Apache License 2.0](LICENSE)。依赖和独立分发的组件保留各自的许可证与版权声明。
 
